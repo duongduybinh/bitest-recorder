@@ -399,7 +399,7 @@ $('#more').click(() => {
 // KAT-END
 
 $(function() {
-    $(document).attr('title', 'Katalon Recorder ' + manifestData.version)
+    $(document).attr('title', 'Automation Test Recorder ' + manifestData.version)
 });
 
 // KAT-BEGIN clear "Save" and "Clear" text

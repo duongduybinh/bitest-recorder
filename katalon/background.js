@@ -358,11 +358,11 @@ function stopAddon() {
 
 browser.runtime.onStartup.addListener(function () {
     setCurrentWindow();
-    waitForConnection();
+    // waitForConnection();
 });
 
 browser.runtime.onInstalled.addListener(function (details) {
-    waitForConnection();    
+    // waitForConnection();    
 });
 
 function createMenus(mode) {

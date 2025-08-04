@@ -532,7 +532,7 @@ function popupCreateMoreTestCase() {
 
 
 export async function checkLoginOrSignupUser() {
-    const createTestCaseThreshold = 1;
+    // const createTestCaseThreshold = 100;
     let result = await browser.storage.local.get("checkLoginData");
     if (!result.checkLoginData) {
         result = {
@@ -548,10 +548,10 @@ export async function checkLoginOrSignupUser() {
     }
     let checkLoginData = result.checkLoginData;
 
-    if (!checkLoginData.isActived && checkLoginData.testCreated >= createTestCaseThreshold) {
-        popupCreateMoreTestCase()
-        return false;
-    }
+    // if (!checkLoginData.isActived && checkLoginData.testCreated >= createTestCaseThreshold) {
+    //     popupCreateMoreTestCase()
+    //     return false;
+    // }
     if (!checkLoginData.playTimes) {
         checkLoginData.playTimes = 0;
     }

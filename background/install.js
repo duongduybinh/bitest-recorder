@@ -14,7 +14,7 @@ browser.runtime.onInstalled.addListener(function (details) {
                 isUpdated: true
             }
         });
-        notificationUpdate("Katalon Recorder has been updated", "Find out about new bug fixes and enhancements!");
+        // notificationUpdate("Katalon Recorder has been updated", "Find out about new bug fixes and enhancements!");
         browser.storage.local.get("UIStyle").then(result => {
             let UIStyle;
             if (!result.UIStyle){

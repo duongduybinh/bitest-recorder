@@ -16,7 +16,7 @@ function showDialog(html, showOK) {
     return $('<div></div>')
         .html(html)
         .dialog({
-            title: 'Katalon Recorder',
+            title: 'Automation Test Recorder',
             resizable: false,
             height: "auto",
             width: 400,
@@ -37,7 +37,7 @@ function showDialogWithCustomButtons(html, buttons) {
         return $('<div></div>')
             .html(html)
             .dialog({
-                title: 'Katalon Recorder',
+                title: 'Automation Test Recorder',
                 resizable: false,
                 height: "auto",
                 width: 400,

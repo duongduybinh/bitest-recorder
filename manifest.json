@@ -1,10 +1,8 @@
 {
-    "description": "Selenium IDE alternative to record and export Selenium scripts. With reports & screenshots. Fast & open-source.",
+    "description": "Selenium IDE alternative to record and export Robot Framework scripts. With reports & screenshots. Fast & open-source.",
     "manifest_version": 2,
-    "name": "addon_name_placeholder",
-    "version": "5.5.4",
-    "homepage_url": "https://www.katalon.com/",
-    "segment_url": "https://backend.katalon.com/api",
+    "name": "Automation Test Recorder",
+    "version": "1.0.0",
     "icons": {
         "16": "katalon/images/branding/branding_16.png",
         "48": "katalon/images/branding/branding_48.png",
@@ -140,7 +138,7 @@
 
     "browser_action": {
         "default_icon": "katalon/images/branding/branding_16.png",
-        "default_title": "Katalon Recorder"
+        "default_title": "Automation Test Recorder"
     },
 
     "web_accessible_resources": [

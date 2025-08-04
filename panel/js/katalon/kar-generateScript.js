@@ -114,6 +114,12 @@ function loadScripts() {
                 'js/katalon/selenium-ide/format/robot/robot.js'
             ];
             break;
+        case 'robot-playwright':
+            scriptNames = [
+                'js/katalon/selenium-ide/formatCommandOnlyAdapter.js',
+                'js/katalon/selenium-ide/format/robot/playwright/robot.js'
+            ];
+            break;
         case 'ruby-wd-rspec':
             scriptNames = [
                 'js/katalon/selenium-ide/formatCommandOnlyAdapter.js',
@@ -329,6 +335,8 @@ function displayOnCodeMirror(language, outputScript) {
                 mode = 'text/x-python';
                 break;
             case 'robot':
+                break;
+                case 'robot':
                 break;
             case 'ruby-wd-rspec':
                 mode = 'text/x-ruby';

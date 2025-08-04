@@ -1,10 +1,11 @@
-import { portSettingTab, selfHealingSettingTab } from "../setting-panel.js";
+// import { portSettingTab, selfHealingSettingTab } from "../setting-panel.js";
+import { selfHealingSettingTab } from "../setting-panel.js";
 
 const treeDataStructure = [
-  {
-    id: "KSPort",
-    name: "Katalon Studio Port",
-  },
+  // {
+  //   id: "KSPort",
+  //   name: "Katalon Studio Port",
+  // },
   {
     id: "selfHealing",
     name: "Self Healing"
@@ -19,9 +20,9 @@ function generateMenuTree() {
     'tree.click',
     function (event) {
       switch (event.node.id) {
-        case "KSPort":
-          portSettingTab.display();
-          break;
+        // case "KSPort":
+        //   portSettingTab.display();
+        //   break;
         case "selfHealing":
           selfHealingSettingTab.display();
           break;

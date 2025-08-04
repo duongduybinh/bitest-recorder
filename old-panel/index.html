@@ -24,7 +24,7 @@
 <head>
     <meta charset="utf-8" />
     <!-- TODO: Change the title bar text -->
-    <title>Katalon Recorder</title>
+    <title>Automation Test Recorder</title>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,700|Roboto:400,500,700" rel="stylesheet">
 
@@ -99,11 +99,11 @@
             <button id="delete-testCase" style="display: none">-Case</button>
             <a download="info.html" id="downloadlink" style="display: none">Download</a>
 
-            <a name="" target="_blank" id="logo_kr_icon" class="sub_btn"><img src="../katalon/images/branding/branding_128.png" alt="Katalon Recorder" /></a>
+            <!-- <a name="" target="_blank" id="logo_kr_icon" class="sub_btn"><img src="../katalon/images/branding/branding_128.png" alt="Katalon Recorder" /></a>
             <a name="" target="_blank" id="logo_kr_full" class="sub_btn">
                 <img class="dark" src="../katalon/images/branding/Katalon-Recorder-full-color-large.png" alt="Katalon Recorder" />
                 <img class="light" src="../katalon/images/branding/Katalon-Recorder-full-color-large-w.png" alt="Katalon Recorder" />
-            </a>
+            </a> -->
 
             <button id="new" class="sub_btn"><i class="fa"></i> New</button>
             <button id="record" class="sub_btn" style="width: 15%"><i class="fa fa-video-camera" aria-hidden="true"></i> Rec.</button>
@@ -117,10 +117,10 @@
                 <img src="../katalon/images/branding/ka_32x24px.png" alt="Katalon TestOps"/>Report</button>
             <button id="export" class="sub_btn" style="width: 15%"><i class="fa"></i> Export</button>
 
-            <div style="position: relative; flex-grow: 0; flex-shrink: 0;margin-left: auto;">
+            <!-- <div style="position: relative; flex-grow: 0; flex-shrink: 0;margin-left: auto;">
                 <a id="referral" class="sub_btn" href="https://www.katalon.com/referral/?utm_source=katalon_recorder&utm_medium=in-app_noti&utm_campaign=referral" target="_blank">
                 </a>
-            </div>
+            </div> -->
             <div id="speed-wrapper">
                 <button id="speed" class="sub_btn"><i class="fa"></i>&nbsp;</button>
                 <div id="slider-container" style="display:none"></div>
@@ -132,9 +132,9 @@
                 <button id="extended-features" class="sub_btn dropbtn"></button>
                 <a id="dailyUsage" style="display: none"></a>
             </div>
-            <div class="dropdown">
+            <!-- <div class="dropdown">
                 <button id="notification" class="sub_btn"></button>
-            </div>
+            </div> -->
             <!--a id="adjust" class="sub_btn"><i class="fa fa-adjust" aria-hidden="true"></i></a-->
             <!-- TODO: Add a stop button -->
         </div>
@@ -315,9 +315,9 @@
                         <li id="self-healing"><a>Self-healing</a></li>
                     </ul>
                     <ul class="tabs">
-                        <li id="ka-open">
+                        <!-- <li id="ka-open">
                             <a><img src="../katalon/images/branding/ka_32x24px.png" alt="Katalon TestOps" />Dashboard</a>
-                        </li>
+                        </li> -->
                         <li id="save-log"><a title="Save logs as...">Save</a></li>
                         <li id="clear-log"><a title="Clear logs">Clear</a></li>
                         <li id="download-all"><a title="Download All">Download All</a></li>
@@ -519,8 +519,8 @@
     <script type="module" src="js/UI/controllers/command-toolbar/command-toolbar-undo-redo.js"></script>
     <script type="module" src="js/UI/controllers/command-toolbar/command-grid-toolbar.js"></script>
     <script type="module" src="js/UI/controllers/command-toolbar/command-toolbar-button.js"></script>
-    <script type="module" src="js/UI/controllers/dialog/welcome-tracking.js"></script>
-    <script type="module" src="js/UI/controllers/dialog/user-researching.js"></script>
+    <!-- <script type="module" src="js/UI/controllers/dialog/welcome-tracking.js"></script> -->
+    <!-- <script type="module" src="js/UI/controllers/dialog/user-researching.js"></script> -->
     <script type="module" src="js/UI/controllers/records-grid/records-grid-sortable-ui.js"></script>
     <script type="module" src="js/UI/controllers/records-grid/context-menu.js"></script>
     <script type="module" src="js/UI/controllers/records-grid/hotkeys-command.js"></script>
@@ -550,14 +550,14 @@
     <script type="module" src="js/UI/controllers/self-healing/hotkeys-self-healing.js"></script>
     <script type="module" src="js/background/playback/index.js"></script>
     <script src="../content-marketing/panel/converttosimage.js"></script>
-    <script type="module" src="../content-marketing/panel/popup-sharing.js"></script>
+    <!-- <script type="module" src="../content-marketing/panel/popup-sharing.js"></script>
     <script type="module" src="../content-marketing/panel/self-healing-rating.js"></script>
     <script type="module" src="../content-marketing/panel/popup-chrome-store.js"></script>
     <script type="module" src="../content-marketing/panel/popup-sample-data.js"></script>
-    <script type="module" src="../content-marketing/panel/popup-what-are-you-automating.js"></script>
+    <script type="module" src="../content-marketing/panel/popup-what-are-you-automating.js"></script> -->
 
     <!-- <script src="js/katalon/kar.js"></script> -->
-    <script src="js/katalon/kar-upload.js"></script>
+    <!-- <script src="js/katalon/kar-upload.js"></script> -->
     <script src="js/katalon/kar-loadCommand.js"></script>
     <script type="module" src="js/katalon/kar-generateScript.js"></script>
     <script src="js/katalon/kar-showDialog.js"></script>
@@ -577,7 +577,7 @@
     <script type="text/javascript" src="js/katalon/newformatters/puppeteer.js"></script>
 
     <script type="module" src="js/UI/controllers/onboarding/onboarding-listener.js"></script>
-    <script type="module" src="js/UI/controllers/onboarding/contextual-onboarding-listener.js"></script>
+    <!-- <script type="module" src="js/UI/controllers/onboarding/contextual-onboarding-listener.js"></script> -->
     <script type="module" src="js/UI/controllers/notification/notification-listener.js"></script>
 </body>
 

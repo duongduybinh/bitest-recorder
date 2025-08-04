@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8"/>
     <!-- TODO: Change the title bar text -->
-    <title>Katalon Recorder</title>
+    <title>Automation Test Recorder</title>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,700|Roboto:400,500,700" rel="stylesheet">
 
@@ -80,14 +80,14 @@
 
         <div class="row">
             <div class="KR-logo">
-                <a name="" target="_blank" id="logo_kr_icon" class="sub_btn"><img
+                <!-- <a name="" target="_blank" id="logo_kr_icon" class="sub_btn"><img
                         src="../katalon/images/branding/branding_128.png" alt="Katalon Recorder"/></a>
                 <a name="" target="_blank" id="logo_kr_full" class="sub_btn">
                     <img class="dark" src="../katalon/images/branding/new-Katalon-Recorder-full-color-large.svg"
                          alt="Katalon Recorder"/>
                     <img class="light" src="../katalon/images/branding/new-Katalon-Recorder-full-color-large-w.svg"
                          alt="Katalon Recorder"/>
-                </a>
+                </a> -->
             </div>
             <div class="main-toolbar">
                 <div class="left-side">
@@ -100,11 +100,11 @@
                     <button id="resume" class="sub_btn btn_pr" style="display: none;">Resume</button>
                 </div>
                 <div class="right-side">
-                    <a id="referral" class="sub_btn"
+                    <!-- <a id="referral" class="sub_btn"
                        href="https://www.katalon.com/referral/?utm_source=katalon_recorder&utm_medium=in-app_noti&utm_campaign=referral"
                        target="_blank">
-                    </a>
-                    <button id="notification" class="sub_btn"></button>
+                    </a> -->
+                    <!-- <button id="notification" class="sub_btn"></button> -->
                     <div id="slider" style="display:none"></div>
                     <div id="slider-container" style="display:none"></div>
                     <button id="more" class="sub_btn"></button>
@@ -118,18 +118,18 @@
                                 <i class="fa"></i>
                                 <div>Settings</div>
                             </button>
-                            <button id="help" class="sub_btn">
+                            <!-- <button id="help" class="sub_btn">
                                 <i class="fa"></i>
                                 <div>Help</div>
-                            </button>
-                            <button id="github" class="sub_btn">
+                            </button> -->
+                            <!-- <button id="github" class="sub_btn">
                                 <i class="fa"></i>
                                 <div>Github</div>
                             </button>
                             <button id="extended-features" class="sub_btn">
                                 <i class="fa"></i>
                                 <div>Stats</div>
-                            </button>
+                            </button> -->
                             <a id="dailyUsage" style="display: none"></a>
                         </div>
                     </div>
@@ -212,7 +212,7 @@
                 </div>
                 <div id="actions" class="module">
                     <header>ACTIONS</header>
-                    <div id="suite-open" class="header" title="Open new test suite">
+                    <!-- <div id="suite-open" class="header" title="Open new test suite">
                         <div class="icon">
                             <img src="/katalon/images/SVG/add-icon.svg">
                         </div>
@@ -231,7 +231,7 @@
                         <div class="title">
                             Templates
                         </div>
-                    </div>
+                    </div> -->
                     <div id="export" class="header" title="Export selected test suite to HTML file">
                         <div class="icon">
                             <img src="/katalon/images/SVG/export-test-suite-icon.svg">
@@ -240,7 +240,7 @@
                             Export
                         </div>
                     </div>
-                    <div id="test-ops-back-up-data" class="header" title="Upload your test suites to Katalon TestOps to safely restore them later">
+                    <!-- <div id="test-ops-back-up-data" class="header" title="Upload your test suites to Katalon TestOps to safely restore them later">
                         <div class="icon">
                             <img src="/katalon/images/SVG/backup-data-icon.svg">
                         </div>
@@ -255,12 +255,12 @@
                         <div class="title">
                             Upload report
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
 
             <div class="bottom">
-                <div class="header" id="feedback">
+                <!-- <div class="header" id="feedback">
                     <div>
                         <img src="/katalon/images/SVG/feed-back-icon.svg"/>
                     </div>
@@ -275,7 +275,7 @@
                     <div class="title">
                         Talk to us
                     </div>
-                </div>
+                </div> -->
             </div>
             <!-- end of messages article -->
         </article>
@@ -357,9 +357,9 @@
                             <li id="self-healing"><a>Self-healing</a></li>
                         </ul>
                         <ul class="tabs">
-                            <li id="ka-open">
+                            <!-- <li id="ka-open">
                                 <a><img src="../katalon/images/branding/ka_32x24px.png" alt="Katalon TestOps"/>Dashboard</a>
-                            </li>
+                            </li> -->
                             <li id="save-log"><a title="Save logs as...">Save</a></li>
                             <li id="clear-log"><a title="Clear logs">Clear</a></li>
                             <li id="download-all"><a title="Download All">Download All</a></li>
@@ -452,6 +452,8 @@
         <div class="" style="height: 30px; line-height: 30px; margin-bottom: 12px;"><label
                 for="select-script-language-id">Format </label>
             <select style="margin:0 5px;" id="select-script-language-id" class="select-script-language">
+                <option value="robot-playwright">Robot Framework (Playwright)</option>
+                <option value="robot">Robot Framework (Selenium)</option>
                 <option value="cs-wd-mstest">C# (WebDriver + MSTest)</option>
                 <option value="cs-wd-nunit">C# (WebDriver + NUnit)</option>
                 <option value="java-wd-testng">Java (WebDriver + TestNG)</option>
@@ -463,7 +465,7 @@
                 <option value="new-formatter-protractorts">Protractor (Typescript)</option>
                 <option value="python2-wd-unittest">Python 2 (WebDriver + unittest)</option>
                 <option value="python-appdynamics">Python (AppDynamics)</option>
-                <option value="robot">Robot Framework</option>
+                
                 <option value="ruby-wd-rspec">Ruby (WebDriver + RSpec)</option>
                 <option value="new-formatter-webdriver">WebDriver.io</option>
                 <option value="xml">XML</option>
@@ -523,8 +525,8 @@
 <script type="module" src="js/UI/controllers/command-toolbar/command-toolbar-undo-redo.js"></script>
 <script type="module" src="js/UI/controllers/command-toolbar/command-grid-toolbar.js"></script>
 <script type="module" src="js/UI/controllers/command-toolbar/command-toolbar-button.js"></script>
-<script type="module" src="js/UI/controllers/dialog/welcome-tracking.js"></script>
-<script type="module" src="js/UI/controllers/dialog/user-researching.js"></script>
+<!-- <script type="module" src="js/UI/controllers/dialog/welcome-tracking.js"></script> -->
+<!-- <script type="module" src="js/UI/controllers/dialog/user-researching.js"></script> -->
 <script type="module" src="js/UI/controllers/dialog/feedback.js"></script>
 <script type="module" src="js/UI/controllers/records-grid/records-grid-sortable-ui.js"></script>
 <script type="module" src="js/UI/controllers/records-grid/context-menu.js"></script>
@@ -564,7 +566,7 @@
 <script type="module" src="../content-marketing/panel/popup-what-are-you-automating.js"></script>
 
 <!-- <script src="js/katalon/kar.js"></script> -->
-<script src="js/katalon/kar-upload.js"></script>
+<!-- <script src="js/katalon/kar-upload.js"></script> -->
 <script src="js/katalon/kar-loadCommand.js"></script>
 <script type="module" src="js/katalon/kar-generateScript.js"></script>
 <script src="js/katalon/kar-showDialog.js"></script>
@@ -584,7 +586,7 @@
 <script type="text/javascript" src="js/katalon/newformatters/puppeteer.js"></script>
 
 <script type="module" src="js/UI/controllers/onboarding/onboarding-listener.js"></script>
-<script type="module" src="js/UI/controllers/onboarding/contextual-onboarding-listener.js"></script>
+<!-- <script type="module" src="js/UI/controllers/onboarding/contextual-onboarding-listener.js"></script> -->
 <script type="module" src="js/UI/controllers/notification/notification-listener.js"></script>
 </body>
 

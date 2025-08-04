@@ -5,7 +5,7 @@ function _loadSeleniumCommands() {
     var nonWaitActions = ['open', 'selectWindow', 'chooseCancelOnNextConfirmation', 'answerOnNextPrompt', 'close', 'setContext', 'setTimeout', 'selectFrame'];
 
     for (func in Selenium.prototype) {
-        //this.log.debug("func=" + func);
+        this.log.debug("func=" + func);
         var r;
         if (func.match(/^do[A-Z]/)) {
             var action = func.substr(2,1).toLowerCase() + func.substr(3);
