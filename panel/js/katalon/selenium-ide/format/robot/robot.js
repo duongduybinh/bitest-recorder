@@ -4,6 +4,45 @@
  *
  */
 
+this.robotKeywordMapping = {
+  open: 'Go To',
+  clickAndWait: 'Click Element',
+  click: 'Click Element',
+  sendKeys: 'Press Keys',
+  submit: 'Submit Form',
+  type: 'Input Text',
+  selectAndWait: 'Select From List',
+  select: 'Select From List',
+  verifyValue: 'Element Should Contain',
+  verifyText: 'Element Should Contain',
+  verifyElementPresent: 'Page Should Contain Element',
+  verifyVisible: 'Page Should Contain Element',
+  verifyTitle: 'Title Should Be',
+  verifyTable: 'Element Should Contain',
+  assertConfirmation: 'Alert Should Be Present',
+  assertText: 'Element Should Contain',
+  assertValue: 'Element Should Contain',
+  assertElementPresent: 'Page Should Contain Element',
+  assertVisible: 'Page Should Contain Element',
+  assertTitle: 'Title Should Be',
+  assertTable: 'Element Should Contain',
+  waitForText: 'Element Should Contain',
+  waitForValue: 'Element Should Contain',
+  waitForElementPresent: 'Page Should Contain Element',
+  waitForVisible: 'Page Should Contain Element',
+  waitForTitle: 'Title Should Be',
+  waitForTable: 'Element Should Contain',
+  doubleClick: 'Double Click Element',
+  doubleClickAndWait: 'Double Click Element',
+  goBack: 'Go Back',
+  goBackAndWait: 'Go Back',
+  runScript: 'Execute Javascript',
+  runScriptAndWait: 'Execute Javascript',
+  setSpeed: 'Set Selenium Timeout',
+  setSpeedAndWait: 'Set Selenium Timeout',
+  verifyAlert: 'Alert Should Be Present'
+};
+
 /**
  * Parse source and update TestCase. Throw an exception if any error occurs.
  *
@@ -68,6 +107,7 @@ function filterForRemoteControl(originalCommands) {
         {
             c1 = "xpath=" + c1;
         }
+        // Xử lý biến
         var key_str_start = c1.search(/\${KEY_.*}/)
         if (key_str_start != -1)
         {

@@ -4,6 +4,45 @@
  *
  */
 
+this.robotKeywordMapping = {
+  open: 'Open New Page',
+  clickAndWait: 'Click',
+  click: 'Click',
+  sendKeys: 'Press Keys',
+  submit: 'Submit Form',
+  type: 'Input Text',
+  selectAndWait: 'Select From List',
+  select: 'Select From List',
+  verifyValue: 'Element Should Contain',
+  verifyText: 'Element Should Contain',
+  verifyElementPresent: 'Page Should Contain Element',
+  verifyVisible: 'Page Should Contain Element',
+  verifyTitle: 'Title Should Be',
+  verifyTable: 'Element Should Contain',
+  assertConfirmation: 'Alert Should Be Present',
+  assertText: 'Element Should Contain',
+  assertValue: 'Element Should Contain',
+  assertElementPresent: 'Page Should Contain Element',
+  assertVisible: 'Page Should Contain Element',
+  assertTitle: 'Title Should Be',
+  assertTable: 'Element Should Contain',
+  waitForText: 'Element Should Contain',
+  waitForValue: 'Element Should Contain',
+  waitForElementPresent: 'Page Should Contain Element',
+  waitForVisible: 'Page Should Contain Element',
+  waitForTitle: 'Title Should Be',
+  waitForTable: 'Element Should Contain',
+  doubleClick: 'Double Click Element',
+  doubleClickAndWait: 'Double Click Element',
+  goBack: 'Go Back',
+  goBackAndWait: 'Go Back',
+  runScript: 'Execute Javascript',
+  runScriptAndWait: 'Execute Javascript',
+  setSpeed: 'Set Selenium Timeout',
+  setSpeedAndWait: 'Set Selenium Timeout',
+  verifyAlert: 'Alert Should Be Present'
+};
+
 /**
  * Parse source and update TestCase. Throw an exception if any error occurs.
  *
@@ -43,11 +82,12 @@ function format(testCase, name) {
 
 function filterForRemoteControl(originalCommands) {
     var commands = [];
+    this.log.info('filterForRemoteControl');
+    this.log.info(originalCommands);
     for (var i = 0; i<originalCommands.length;i++)
     {
-        var c = originalCommands[i];
-        this.log.info("originalCommands: " + c);
-        c1 = String(c);
+        var command = originalCommands[i];
+        c1 = String(command);
         if (c1.match("|"))
         {
             c1 = c1.replace("|","  ").replace("|","  ");    
@@ -57,8 +97,6 @@ function filterForRemoteControl(originalCommands) {
         {
             c1 = c1.replace(/label=/g,"");
         }
-
-        this.log.info("Match |: " + c1);
 
         //Xu ly xpath
         var temp = c1.indexOf("//");
@@ -88,7 +126,22 @@ function filterForRemoteControl(originalCommands) {
     return commands;
 }
 
+function commandMapping(cmd){
+    if(typeof cmd === 'object' && cmd !== null && cmd.type === 'command')
+    {
+        cmd.command = robotKeywordMapping[cmd.command] ?? cmd.command;
+    }
+
+    return cmd;
+}
+
+function isNullOrWhitespace(str) {
+  return str === null || str === undefined || (typeof str === 'string' && str.trim().length === 0);
+}
+
 function formatCommands(name,commands) {
+    
+    commands = commands.map((cmd) => commandMapping(cmd));
     commands = filterForRemoteControl(commands);
     var result = "";
     for (var i = 0; i < commands.length; i++) {
@@ -118,14 +171,15 @@ function formatHeader(name,testCase) {
             openurl = testCase.getBaseURL();
         }
     }
-    header += "    [Setup]  Run Keywords  Open Browser  " + openurl + "  ${BROWSER}\n";
-    header += "    ...              AND   Set Selenium Speed  ${SELSPEED}\n";
+    // header += "    [Setup]  Run Keywords  Open Browser  " + openurl + "  ${BROWSER}\n";
+    // header += "    ...              AND   Set Selenium Speed  ${SELSPEED}\n";
+    header += "    Open New Page    " + openurl + "\n";
     return header;
 }
 
 function formatFooter(name,testCase) {
     var footer = "";
-    footer += "    [Teardown]  Close Browser\n";
+    // footer += "    [Teardown]  Close Browser\n";
     footer += options.footer;
     return footer;
 }
@@ -149,9 +203,9 @@ function formatComment(comment) {
         });
 }
 
-if      (bowser.chrome)  { this.active_browser = "chrome"; }
+if      (bowser.chrome)  { this.active_browser = "chromium"; }
 else if (bowser.firefox) { this.active_browser = "firefox"; }
-else                     { this.active_browser = "firefox"; }
+else                     { this.active_browser = "chromium"; }
 
 //cai dat cac thuoc tinh hien thi tren plugin
 this.options = {
@@ -185,117 +239,128 @@ this.name = "robotframework-testing_playwright";
 
 options.header =
     '*** Settings ***\n' +
-    'Library  Browser\n\n' +
+    'Library  Browser\n' +
+    'Suite Setup     Start Browser\n' +
+    'Suite Teardown  End Browser\n\n' +
     '*** Variables ***\n' +
-    '${BROWSER}   ' + this.active_browser + '\n' +
-    '${SELSPEED}  0.0s\n\n' +
+    '${BROWSER}   ' + this.active_browser + '\n\n' +
     '*** Test Cases ***\n';
-
-options.footer =
+options.footer = 
     '\n*** Keywords ***\n' +
-    'open\n' +
-    '    [Arguments]    ${element}\n' +
-    '    Go To          ${element}\n\n' +
-    'clickAndWait\n' +
-    '    [Arguments]    ${element}\n' +
-    '    Click Element  ${element}\n\n' +
-    'click\n' +
-    '    [Arguments]    ${element}\n' +
-    '    Click Element  ${element}\n\n' +
-    'sendKeys\n' +
-    '    [Arguments]    ${element}    ${value}\n' +
-    '    Press Keys     ${element}    ${value}\n\n' +
-    'submit\n' +
-    '    [Arguments]    ${element}\n' +
-    '    Submit Form    ${element}\n\n' +
-    'type\n' +
-    '    [Arguments]    ${element}    ${value}\n' +
-    '    Input Text     ${element}    ${value}\n\n' +
-    'selectAndWait\n' +
-    '    [Arguments]        ${element}  ${value}\n' +
-    '    Select From List   ${element}  ${value}\n\n' +
-    'select\n' +
-    '    [Arguments]        ${element}  ${value}\n' +
-    '    Select From List   ${element}  ${value}\n\n' +
-    'verifyValue\n' +
-    '    [Arguments]                  ${element}  ${value}\n' +
-    '    Element Should Contain       ${element}  ${value}\n\n' +
-    'verifyText\n' +
-    '    [Arguments]                  ${element}  ${value}\n' +
-    '    Element Should Contain       ${element}  ${value}\n\n' +
-    'verifyElementPresent\n' +
-    '    [Arguments]                  ${element}\n' +
-    '    Page Should Contain Element  ${element}\n\n' +
-    'verifyVisible\n' +
-    '    [Arguments]                  ${element}\n' +
-    '    Page Should Contain Element  ${element}\n\n' +
-    'verifyTitle\n' +
-    '    [Arguments]                  ${title}\n' +
-    '    Title Should Be              ${title}\n\n' +
-    'verifyTable\n' +
-    '    [Arguments]                  ${element}  ${value}\n' +
-    '    Element Should Contain       ${element}  ${value}\n\n' +
-    'assertConfirmation\n' +
-    '    [Arguments]                  ${value}\n' +
-    '    Alert Should Be Present      ${value}\n\n' +
-    'assertText\n' +
-    '    [Arguments]                  ${element}  ${value}\n' +
-    '    Element Should Contain       ${element}  ${value}\n\n' +
-    'assertValue\n' +
-    '    [Arguments]                  ${element}  ${value}\n' +
-    '    Element Should Contain       ${element}  ${value}\n\n' +
-    'assertElementPresent\n' +
-    '    [Arguments]                  ${element}\n' +
-    '    Page Should Contain Element  ${element}\n\n' +
-    'assertVisible\n' +
-    '    [Arguments]                  ${element}\n' +
-    '    Page Should Contain Element  ${element}\n\n' +
-    'assertTitle\n' +
-    '    [Arguments]                  ${title}\n' +
-    '    Title Should Be              ${title}\n\n' +
-    'assertTable\n' +
-    '    [Arguments]                  ${element}  ${value}\n' +
-    '    Element Should Contain       ${element}  ${value}\n\n' +
-    'waitForText\n' +
-    '    [Arguments]                  ${element}  ${value}\n' +
-    '    Element Should Contain       ${element}  ${value}\n\n' +
-    'waitForValue\n' +
-    '    [Arguments]                  ${element}  ${value}\n' +
-    '    Element Should Contain       ${element}  ${value}\n\n' +
-    'waitForElementPresent\n' +
-    '    [Arguments]                  ${element}\n' +
-    '    Page Should Contain Element  ${element}\n\n' +
-    'waitForVisible\n' +
-    '    [Arguments]                  ${element}\n' +
-    '    Page Should Contain Element  ${element}\n\n' +
-    'waitForTitle\n' +
-    '    [Arguments]                  ${title}\n' +
-    '    Title Should Be              ${title}\n\n' +
-    'waitForTable\n' +
-    '    [Arguments]                  ${element}  ${value}\n' +
-    '    Element Should Contain       ${element}  ${value}\n\n' +
-    'doubleClick\n' +
-    '    [Arguments]           ${element}\n' +
-    '    Double Click Element  ${element}\n\n' +
-    'doubleClickAndWait\n' +
-    '    [Arguments]           ${element}\n' +
-    '    Double Click Element  ${element}\n\n' +
-    'goBack\n' +
-    '    Go Back\n\n' +
-    'goBackAndWait\n' +
-    '    Go Back\n\n' +
-    'runScript\n' +
-    '    [Arguments]         ${code}\n' +
-    '    Execute Javascript  ${code}\n\n' +
-    'runScriptAndWait\n' +
-    '    [Arguments]         ${code}\n' +
-    '    Execute Javascript  ${code}\n\n' +
-    'setSpeed\n' +
-    '    [Arguments]           ${value}\n' +
-    '    Set Selenium Timeout  ${value}\n\n' +
-    'setSpeedAndWait\n' +
-    '    [Arguments]           ${value}\n' +
-    '    Set Selenium Timeout  ${value}\n\n' +
-    'verifyAlert\n' +
-    '    [Arguments]              ${value}\n' +
-    '    Alert Should Be Present  ${value}\n';
+    'Start Browser\n' +
+    //'    New Browser    ' + this.active_browser + '    timeout=60000\n' +
+    '    New Browser    ${BROWSER}    timeout=60000\n' +
+    '    New Context    ignoreHTTPSErrors=True\n\n' +
+    'End Browser\n' +
+    '    Close Browser\n\n' +
+    'Open New Page\n' +
+'    [Arguments]    ${url}\n' +
+'    New Page    ${url}    domcontentloaded\n';  
+// options.footer =
+//     '\n*** Keywords ***\n' +
+//     'open\n' +
+//     '    [Arguments]    ${element}\n' +
+//     '    Go To          ${element}\n\n' +
+//     'clickAndWait\n' +
+//     '    [Arguments]    ${element}\n' +
+//     '    Click Element  ${element}\n\n' +
+//     'click\n' +
+//     '    [Arguments]    ${element}\n' +
+//     '    Click Element  ${element}\n\n' +
+//     'sendKeys\n' +
+//     '    [Arguments]    ${element}    ${value}\n' +
+//     '    Press Keys     ${element}    ${value}\n\n' +
+//     'submit\n' +
+//     '    [Arguments]    ${element}\n' +
+//     '    Submit Form    ${element}\n\n' +
+//     'type\n' +
+//     '    [Arguments]    ${element}    ${value}\n' +
+//     '    Input Text     ${element}    ${value}\n\n' +
+//     'selectAndWait\n' +
+//     '    [Arguments]        ${element}  ${value}\n' +
+//     '    Select From List   ${element}  ${value}\n\n' +
+//     'select\n' +
+//     '    [Arguments]        ${element}  ${value}\n' +
+//     '    Select From List   ${element}  ${value}\n\n' +
+//     'verifyValue\n' +
+//     '    [Arguments]                  ${element}  ${value}\n' +
+//     '    Element Should Contain       ${element}  ${value}\n\n' +
+//     'verifyText\n' +
+//     '    [Arguments]                  ${element}  ${value}\n' +
+//     '    Element Should Contain       ${element}  ${value}\n\n' +
+//     'verifyElementPresent\n' +
+//     '    [Arguments]                  ${element}\n' +
+//     '    Page Should Contain Element  ${element}\n\n' +
+//     'verifyVisible\n' +
+//     '    [Arguments]                  ${element}\n' +
+//     '    Page Should Contain Element  ${element}\n\n' +
+//     'verifyTitle\n' +
+//     '    [Arguments]                  ${title}\n' +
+//     '    Title Should Be              ${title}\n\n' +
+//     'verifyTable\n' +
+//     '    [Arguments]                  ${element}  ${value}\n' +
+//     '    Element Should Contain       ${element}  ${value}\n\n' +
+//     'assertConfirmation\n' +
+//     '    [Arguments]                  ${value}\n' +
+//     '    Alert Should Be Present      ${value}\n\n' +
+//     'assertText\n' +
+//     '    [Arguments]                  ${element}  ${value}\n' +
+//     '    Element Should Contain       ${element}  ${value}\n\n' +
+//     'assertValue\n' +
+//     '    [Arguments]                  ${element}  ${value}\n' +
+//     '    Element Should Contain       ${element}  ${value}\n\n' +
+//     'assertElementPresent\n' +
+//     '    [Arguments]                  ${element}\n' +
+//     '    Page Should Contain Element  ${element}\n\n' +
+//     'assertVisible\n' +
+//     '    [Arguments]                  ${element}\n' +
+//     '    Page Should Contain Element  ${element}\n\n' +
+//     'assertTitle\n' +
+//     '    [Arguments]                  ${title}\n' +
+//     '    Title Should Be              ${title}\n\n' +
+//     'assertTable\n' +
+//     '    [Arguments]                  ${element}  ${value}\n' +
+//     '    Element Should Contain       ${element}  ${value}\n\n' +
+//     'waitForText\n' +
+//     '    [Arguments]                  ${element}  ${value}\n' +
+//     '    Element Should Contain       ${element}  ${value}\n\n' +
+//     'waitForValue\n' +
+//     '    [Arguments]                  ${element}  ${value}\n' +
+//     '    Element Should Contain       ${element}  ${value}\n\n' +
+//     'waitForElementPresent\n' +
+//     '    [Arguments]                  ${element}\n' +
+//     '    Page Should Contain Element  ${element}\n\n' +
+//     'waitForVisible\n' +
+//     '    [Arguments]                  ${element}\n' +
+//     '    Page Should Contain Element  ${element}\n\n' +
+//     'waitForTitle\n' +
+//     '    [Arguments]                  ${title}\n' +
+//     '    Title Should Be              ${title}\n\n' +
+//     'waitForTable\n' +
+//     '    [Arguments]                  ${element}  ${value}\n' +
+//     '    Element Should Contain       ${element}  ${value}\n\n' +
+//     'doubleClick\n' +
+//     '    [Arguments]           ${element}\n' +
+//     '    Double Click Element  ${element}\n\n' +
+//     'doubleClickAndWait\n' +
+//     '    [Arguments]           ${element}\n' +
+//     '    Double Click Element  ${element}\n\n' +
+//     'goBack\n' +
+//     '    Go Back\n\n' +
+//     'goBackAndWait\n' +
+//     '    Go Back\n\n' +
+//     'runScript\n' +
+//     '    [Arguments]         ${code}\n' +
+//     '    Execute Javascript  ${code}\n\n' +
+//     'runScriptAndWait\n' +
+//     '    [Arguments]         ${code}\n' +
+//     '    Execute Javascript  ${code}\n\n' +
+//     'setSpeed\n' +
+//     '    [Arguments]           ${value}\n' +
+//     '    Set Selenium Timeout  ${value}\n\n' +
+//     'setSpeedAndWait\n' +
+//     '    [Arguments]           ${value}\n' +
+//     '    Set Selenium Timeout  ${value}\n\n' +
+//     'verifyAlert\n' +
+//     '    [Arguments]              ${value}\n' +
+//     '    Alert Should Be Present  ${value}\n';

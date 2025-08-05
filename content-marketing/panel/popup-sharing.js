@@ -375,7 +375,7 @@ function setNewDay(result) {
     if (checkedTime >= 1800 && !startup.isCheckedPopup) {
         startup.isCheckedPopup = true;
         browser.storage.local.set(result);
-        popupShareUsDialog();
+        // popupShareUsDialog();
     }
 }
 

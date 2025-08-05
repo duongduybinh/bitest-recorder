@@ -393,8 +393,12 @@ $('#extended-features').click(() => {
     $('#dailyUsage').click();
 });
 
-$('#more').click(() => {
-    $('#myDropdown').toggle();
+$('#more').click((event) => {
+    // $('#myDropdown').toggle();
+    // $("#myDropdown").css("left", event.pageX);
+    // $("#myDropdown").css("top", event.pageY);
+    $("#myDropdown").show();
+
 });
 // KAT-END
 

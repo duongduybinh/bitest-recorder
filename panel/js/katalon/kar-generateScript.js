@@ -335,8 +335,8 @@ function displayOnCodeMirror(language, outputScript) {
                 mode = 'text/x-python';
                 break;
             case 'robot':
-                break;
-                case 'robot':
+            case 'robot-playwright':
+                mode = 'text/x-robotframework';
                 break;
             case 'ruby-wd-rspec':
                 mode = 'text/x-ruby';
