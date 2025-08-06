@@ -469,9 +469,10 @@ Recorder.addEventHandler('contextMenu', 'contextmenu', function(event) {
                 self.record(m.cmd, [[tmpUrl]],'');
             } else if (m.cmd.startsWith('robot.')){
                 var cmdNotRobot = m.cmd.replace('robot.','');
-                if (cmdNotRobot.startsWith('Input Should '))
+                if (cmdNotRobot.startsWith('assertInput'))
                     self.record(m.cmd, tmpText, '');
-
+                else
+                    self.record(m.cmd, tmpText, tmpVal);
             }
         }        
         myPort.onMessage.removeListener(portListener);
