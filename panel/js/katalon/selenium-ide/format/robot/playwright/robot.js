@@ -6,152 +6,271 @@
 
 
 this.robotKeywordMapping = {
-  open: { 
-    command: 'Open New Page', 
-    codes: [
-        '[Arguments]    ${url}',
-        'New Page    ${url}    domcontentloaded'
-    ]},
-  clickAndWait: { 
-    command: 'Click First Element', 
-    codes: [
-        '[Arguments]    ${selector}',
-        '${elements}=    Get Elements    ${selector}',
-        'Should Not Be Empty    ${elements}',
-        'Click    ${elements[0]}'
-    ]},
-  click: { 
-    command: 'Click First Element', 
-    codes: [
-        '[Arguments]    ${selector}',
-        '${elements}=    Get Elements    ${selector}',
-        'Should Not Be Empty    ${elements}',
-        'Click    ${elements[0]}'
-    ]},
-  sendKeys: { command: 'Press Keys', codes: [] },
-  submit: { command: 'Submit Form', codes: [] },
-  type: { command: 'Input Text', codes: [] },
-  selectAndWait: { command: 'Select From List', codes: [] },
-  select: { command: 'Select From List', codes: [] },
-  verifyValue: { 
-    command: 'Element Should Contains', 
-    codes: [
-        '[Arguments]    ${selector}    ${expected}',
-        '${elements}=    Get Elements    ${selector}',
-        'FOR    ${el}    IN    @{elements}',
-        '   ${text}=    Get Text    ${el}',
-        '   Return From Keyword If    $text == $expected    ${text}',
-        'END',
-        'Fail'
-    ]},
-  verifyText: { 
-    command: 'Element Should Contains', 
-    codes: [
-        '[Arguments]    ${selector}    ${expected}',
-        '${elements}=    Get Elements    ${selector}',
-        'FOR    ${el}    IN    @{elements}',
-        '   ${text}=    Get Text    ${el}',
-        '   Return From Keyword If    $text == $expected    ${text}',
-        'END',
-        'Fail'
-    ]},
-  verifyElementPresent: { command: 'Page Should Contain Element', codes: [] },
-  verifyVisible: { command: 'Page Should Contain Element', codes: [] },
-  verifyTitle: { command: 'Title Should Be', codes: [] },
-  verifyTable:  { 
-    command: 'Element Should Contains', 
-    codes: [
-        '[Arguments]    ${selector}    ${expected}',
-        '${elements}=    Get Elements    ${selector}',
-        'FOR    ${el}    IN    @{elements}',
-        '   ${text}=    Get Text    ${el}',
-        '   Return From Keyword If    $text == $expected    ${text}',
-        'END',
-        'Fail'
-    ]},
-  assertConfirmation: { command: 'Alert Should Be Present', codes: [] },
-  assertText:  { 
-    command: 'Element Should Contains', 
-    codes: [
-        '[Arguments]    ${selector}    ${expected}',
-        '${elements}=    Get Elements    ${selector}',
-        'FOR    ${el}    IN    @{elements}',
-        '   ${text}=    Get Text    ${el}',
-        '   Return From Keyword If    $text == $expected    ${text}',
-        'END',
-        'Fail'
-    ]},
-  assertValue:  { 
-    command: 'Element Should Contains', 
-    codes: [
-        '[Arguments]    ${selector}    ${expected}',
-        '${elements}=    Get Elements    ${selector}',
-        'FOR    ${el}    IN    @{elements}',
-        '   ${text}=    Get Text    ${el}',
-        '   Return From Keyword If    $text == $expected    ${text}',
-        'END',
-        'Fail'
-    ]},
-  assertElementPresent: { command: 'Page Should Contain Element', codes: [] },
-  assertVisible: { command: 'Page Should Contain Element', codes: [] },
-  assertTitle: { command: 'Title Should Be', codes: [] },
-  assertTable:  { 
-    command: 'Element Should Contains', 
-    codes: [
-        '[Arguments]    ${selector}    ${expected}',
-        '${elements}=    Get Elements    ${selector}',
-        'FOR    ${el}    IN    @{elements}',
-        '   ${text}=    Get Text    ${el}',
-        '   Return From Keyword If    $text == $expected    ${text}',
-        'END',
-        'Fail'
-    ]},
-  waitForText:  { 
-    command: 'Element Should Contains', 
-    codes: [
-        '[Arguments]    ${selector}    ${expected}',
-        '${elements}=    Get Elements    ${selector}',
-        'FOR    ${el}    IN    @{elements}',
-        '   ${text}=    Get Text    ${el}',
-        '   Return From Keyword If    $text == $expected    ${text}',
-        'END',
-        'Fail'
-    ]},
-  waitForValue:  { 
-    command: 'Element Should Contains', 
-    codes: [
-        '[Arguments]    ${selector}    ${expected}',
-        '${elements}=    Get Elements    ${selector}',
-        'FOR    ${el}    IN    @{elements}',
-        '   ${text}=    Get Text    ${el}',
-        '   Return From Keyword If    $text == $expected    ${text}',
-        'END',
-        'Fail'
-    ]},
-  waitForElementPresent: { command: 'Page Should Contain Element', codes: [] },
-  waitForVisible: { command: 'Page Should Contain Element', codes: [] },
-  waitForTitle: { command: 'Title Should Be', codes: [] },
-  waitForTable:  { 
-    command: 'Element Should Contains', 
-    codes: [
-        '[Arguments]    ${selector}    ${expected}',
-        '${elements}=    Get Elements    ${selector}',
-        'FOR    ${el}    IN    @{elements}',
-        '   ${text}=    Get Text    ${el}',
-        '   Return From Keyword If    $text == $expected    ${text}',
-        'END',
-        'Fail'
-    ]},
-  doubleClick: { command: 'Double Click Element', codes: [] },
-  doubleClickAndWait: { command: 'Double Click Element', codes: [] },
-  goBack: { command: 'Go Back', codes: [] },
-  goBackAndWait: { command: 'Go Back', codes: [] },
-  runScript: { command: 'Execute Javascript', codes: [] },
-  runScriptAndWait: { command: 'Execute Javascript', codes: [] },
-  setSpeed: { command: 'Set Selenium Timeout', codes: [] },
-  setSpeedAndWait: { command: 'Set Selenium Timeout', codes: [] },
-  verifyAlert: { command: 'Alert Should Be Present', codes: [] }
+    open: {
+        command: 'Open New Page',
+        codes: [
+            '[Arguments]    ${url}',
+            'New Page    ${url}    domcontentloaded'
+        ]
+    },
+    clickAndWait: {
+        command: 'Click First Element',
+        codes: [
+            '[Arguments]    ${selector}',
+            '${elements}=    Get Elements    ${selector}',
+            'Should Not Be Empty    ${elements}',
+            'Click    ${elements[0]}'
+        ]
+    },
+    click: {
+        command: 'Click First Element',
+        codes: [
+            '[Arguments]    ${selector}',
+            '${elements}=    Get Elements    ${selector}',
+            'Should Not Be Empty    ${elements}',
+            'Click    ${elements[0]}'
+        ]
+    },
+    sendKeys: { command: 'Press Keys', codes: [] },
+    submit: { command: 'Submit Form', codes: [] },
+    type: { command: 'Fill Text', codes: [] },
+    selectAndWait: { command: 'Select From List', codes: [] },
+    select: { command: 'Select From List', codes: [] },
+    verifyValue: {
+        command: 'Element Should Contains',
+        codes: [
+            '[Arguments]    ${selector}    ${expected}',
+            '${elements}=    Get Elements    ${selector}',
+            'FOR    ${el}    IN    @{elements}',
+            '   ${text}=    Get Text    ${el}',
+            '   Return From Keyword If    $text == $expected    ${text}',
+            'END',
+            'Fail'
+        ]
+    },
+    verifyText: {
+        command: 'Element Should Contains',
+        codes: [
+            '[Arguments]    ${selector}    ${expected}',
+            '${elements}=    Get Elements    ${selector}',
+            'FOR    ${el}    IN    @{elements}',
+            '   ${text}=    Get Text    ${el}',
+            '   Return From Keyword If    $text == $expected    ${text}',
+            'END',
+            'Fail'
+        ]
+    },
+    verifyElementPresent: { command: 'Page Should Contain Element', codes: [] },
+    verifyVisible: { command: 'Page Should Contain Element', codes: [] },
+    verifyTitle: {
+        command: 'Title Should Be',
+        codes: [
+            "[Arguments]    ${selector}    ${expected}",
+            "Get Title    ==    ${expected}"
+        ]
+    },
+    verifyTable: {
+        command: 'Element Should Contains',
+        codes: [
+            '[Arguments]    ${selector}    ${expected}',
+            '${elements}=    Get Elements    ${selector}',
+            'FOR    ${el}    IN    @{elements}',
+            '   ${text}=    Get Text    ${el}',
+            '   Return From Keyword If    $text == $expected    ${text}',
+            'END',
+            'Fail'
+        ]
+    },
+    assertConfirmation: { command: 'Alert Should Be Present', codes: [] },
+    assertText: {
+        command: 'Element Should Contains',
+        codes: [
+            '[Arguments]    ${selector}    ${expected}',
+            '${elements}=    Get Elements    ${selector}',
+            'FOR    ${el}    IN    @{elements}',
+            '   ${text}=    Get Text    ${el}',
+            '   Return From Keyword If    $text == $expected    ${text}',
+            'END',
+            'Fail'
+        ]
+    },
+    assertValue: {
+        command: 'Element Should Contains',
+        codes: [
+            '[Arguments]    ${selector}    ${expected}',
+            '${elements}=    Get Elements    ${selector}',
+            'FOR    ${el}    IN    @{elements}',
+            '   ${text}=    Get Text    ${el}',
+            '   Return From Keyword If    $text == $expected    ${text}',
+            'END',
+            'Fail'
+        ]
+    },
+    assertElementPresent: { command: 'Page Should Contain Element', codes: [] },
+    assertVisible: { command: 'Page Should Contain Element', codes: [] },
+    assertTitle: {
+        command: 'Title Should Be',
+        codes: [
+            "[Arguments]    ${selector}    ${expected}",
+            "Get Title    ==    ${expected}"
+        ]
+    },
+    assertTable: {
+        command: 'Element Should Contains',
+        codes: [
+            '[Arguments]    ${selector}    ${expected}',
+            '${elements}=    Get Elements    ${selector}',
+            'FOR    ${el}    IN    @{elements}',
+            '   ${text}=    Get Text    ${el}',
+            '   Return From Keyword If    $text == $expected    ${text}',
+            'END',
+            'Fail'
+        ]
+    },
+    waitForText: {
+        command: 'Element Should Contains',
+        codes: [
+            '[Arguments]    ${selector}    ${expected}',
+            '${elements}=    Get Elements    ${selector}',
+            'FOR    ${el}    IN    @{elements}',
+            '   ${text}=    Get Text    ${el}',
+            '   Return From Keyword If    $text == $expected    ${text}',
+            'END',
+            'Fail'
+        ]
+    },
+    waitForValue: {
+        command: 'Element Should Contains',
+        codes: [
+            '[Arguments]    ${selector}    ${expected}',
+            '${elements}=    Get Elements    ${selector}',
+            'FOR    ${el}    IN    @{elements}',
+            '   ${text}=    Get Text    ${el}',
+            '   Return From Keyword If    $text == $expected    ${text}',
+            'END',
+            'Fail'
+        ]
+    },
+    waitForElementPresent: { command: 'Page Should Contain Element', codes: [] },
+    waitForVisible: { command: 'Page Should Contain Element', codes: [] },
+    waitForTitle: {
+        command: 'Title Should Be',
+        codes: [
+            "[Arguments]    ${selector}    ${expected}",
+            "Get Title    ==    ${expected}"
+        ]
+    },
+    waitForTable: {
+        command: 'Element Should Contains',
+        codes: [
+            '[Arguments]    ${selector}    ${expected}',
+            '${elements}=    Get Elements    ${selector}',
+            'FOR    ${el}    IN    @{elements}',
+            '   ${text}=    Get Text    ${el}',
+            '   Return From Keyword If    $text == $expected    ${text}',
+            'END',
+            'Fail'
+        ]
+    },
+    doubleClick: { command: 'Double Click Element', codes: [] },
+    doubleClickAndWait: { command: 'Double Click Element', codes: [] },
+    goBack: { command: 'Go Back', codes: [] },
+    goBackAndWait: { command: 'Go Back', codes: [] },
+    runScript: { command: 'Execute Javascript', codes: [] },
+    runScriptAndWait: { command: 'Execute Javascript', codes: [] },
+    setSpeed: { command: 'Set Selenium Timeout', codes: [] },
+    setSpeedAndWait: { command: 'Set Selenium Timeout', codes: [] },
+    verifyAlert: { command: 'Alert Should Be Present', codes: [] },
+    assertUrl: {
+        command: "Url Should Be",
+        codes: [
+            "[Arguments]    ${selector}    ${expected}",
+            "Get Url    ==    ${expected}"
+        ]
+    },
+    assertInputValueMissing: {
+        command: "Input Should Be Value Missing",
+        codes: [
+            "[Arguments]    ${selector}",
+            "${validy}=    Evaluate JavaScript    ${selector}    input => input.validity.valueMissing",
+            "Should Be True    ${validy}"
+        ]
+    },
+    assertInputTypeMismatch: {
+        command: "Input Should Be Type Mismatch",
+        codes: [
+            "[Arguments]    ${selector}",
+            "${validy}=    Evaluate JavaScript    ${selector}    input => input.validity.typeMismatch",
+            "Should Be True    ${validy}"
+        ]
+    },
+    assertInputPatternMismatch: {
+        command: "Input Should Be Pattern Mismatch",
+        codes: [
+            "[Arguments]    ${selector}",
+            "${validy}=    Evaluate JavaScript    ${selector}    input => input.validity.patternMismatch",
+            "Should Be True    ${validy}"
+        ]
+    },
+    assertInputTooShort: {
+        command: "Input Should Be Too Short",
+        codes: [
+            "[Arguments]    ${selector}",
+            "${validy}=    Evaluate JavaScript    ${selector}    input => input.validity.tooShort",
+            "Should Be True    ${validy}"
+        ]
+    },
+    assertInputTooLong: {
+        command: "Input Should Be Too Long",
+        codes: [
+            "[Arguments]    ${selector}",
+            "${validy}=    Evaluate JavaScript    ${selector}    input => input.validity.tooLong",
+            "Should Be True    ${validy}"
+        ]
+    },
+    assertInputRangeUnderflow: {
+        command: "Input Should Be Range Underflow",
+        codes: [
+            "[Arguments]    ${selector}",
+            "${validy}=    Evaluate JavaScript    ${selector}    input => input.validity.rangeUnderflow",
+            "Should Be True    ${validy}"
+        ]
+    },
+    assertInputRangeOverflow: {
+        command: "Input Should Be Range Overflow",
+        codes: [
+            "[Arguments]    ${selector}",
+            "${validy}=    Evaluate JavaScript    ${selector}    input => input.validity.rangeOverflow",
+            "Should Be True    ${validy}"
+        ]
+    },
+    assertInputStepMismatch: {
+        command: "Input Should Be Step Mismatch",
+        codes: [
+            "[Arguments]    ${selector}",
+            "${validy}=    Evaluate JavaScript    ${selector}    input => input.validity.stepMismatch",
+            "Should Be True    ${validy}"
+        ]
+    },
+    assertInputBadInput: {
+        command: "Input Should Be Bad Input",
+        codes: [
+            "[Arguments]    ${selector}",
+            "${validy}=    Evaluate JavaScript    ${selector}    input => input.validity.badInput",
+            "Should Be True    ${validy}"
+        ]
+    },
+    assertInputCustomError: {
+        command: "Input Should Be Custom Error",
+        codes: [
+            "[Arguments]    ${selector}",
+            "${validy}=    Evaluate JavaScript    ${selector}    input => input.validity.customError",
+            "Should Be True    ${validy}"
+        ]
+    }
 };
+
+
 this.robotKeywordReplace = {
     'Start Browser': [
         'New Browser    ${BROWSER}    timeout=60000',
@@ -195,10 +314,10 @@ function format(testCase, name) {
     this.log.info("formatting testCase: " + name);
     var result = "";
 
-    result += formatHeader(name,testCase);
-    result += formatCommands(name,testCase.commands);
-    result += formatFooter(name,testCase);
-    
+    result += formatHeader(name, testCase);
+    result += formatCommands(name, testCase.commands);
+    result += formatFooter(name, testCase);
+
     return result;
 }
 
@@ -206,41 +325,35 @@ function filterForRemoteControl(originalCommands) {
     var commands = [];
     this.log.info('filterForRemoteControl');
     this.log.info(originalCommands);
-    for (var i = 0; i<originalCommands.length;i++)
-    {
+    for (var i = 0; i < originalCommands.length; i++) {
         var command = originalCommands[i];
         c1 = String(command);
-        if (c1.match("|"))
-        {
-            c1 = c1.replace("|","  ").replace("|","  ");    
+        if (c1.match("|")) {
+            c1 = c1.replace("|", "  ").replace("|", "  ");
         }
 
-        if (c1.match("label="))
-        {
-            c1 = c1.replace(/label=/g,"");
+        if (c1.match("label=")) {
+            c1 = c1.replace(/label=/g, "");
         }
 
         //Xu ly xpath
         var temp = c1.indexOf("//");
-        if (temp != -1 && c1.charAt(temp-1) == " ")
-        {
-            c1 = c1.replace("//","xpath=//");
+        if (temp != -1 && c1.charAt(temp - 1) == " ") {
+            c1 = c1.replace("//", "xpath=//");
         }
 
-        if (c1.indexOf("/html") == 0)
-        {
+        if (c1.indexOf("/html") == 0) {
             c1 = "xpath=" + c1;
         }
 
         var key_str_start = c1.search(/\${KEY_.*}/)
-        if (key_str_start != -1)
-        {
+        if (key_str_start != -1) {
             this.log.info("key_str_start: " + key_str_start);
-            var key_str_stop  = c1.indexOf("}",key_str_start+6);
+            var key_str_stop = c1.indexOf("}", key_str_start + 6);
             this.log.info("key_str_stop: " + key_str_stop);
-            var key_str = c1.slice(key_str_start+6,key_str_stop);
+            var key_str = c1.slice(key_str_start + 6, key_str_stop);
             this.log.info("key_str: " + key_str);
-            c1 = c1.replace(/\${KEY_.*}/,key_str);
+            c1 = c1.replace(/\${KEY_.*}/, key_str);
             this.log.info("C1 |: " + c1);
         }
         commands.push(c1);
@@ -248,13 +361,13 @@ function filterForRemoteControl(originalCommands) {
     return commands;
 }
 
-function commandMapping(cmd){
-    if(typeof cmd === 'object' && cmd !== null && cmd.type === 'command')
-    {
-        var altCommand = robotKeywordMapping[cmd.command];
-        if(altCommand){
+function commandMapping(cmd) {
+    if (typeof cmd === 'object' && cmd !== null && cmd.type === 'command') {
+
+        var altCommand = robotKeywordMapping[cmd.command.replace('robot.','')];
+        if (altCommand) {
             cmd.command = altCommand.command;
-            if(altCommand.codes && altCommand.codes.length >0)
+            if (altCommand.codes && altCommand.codes.length > 0)
                 this.robotKeywordReplace[altCommand.command] = altCommand.codes;
         }
     }
@@ -263,11 +376,11 @@ function commandMapping(cmd){
 }
 
 function isNullOrWhitespace(str) {
-  return str === null || str === undefined || (typeof str === 'string' && str.trim().length === 0);
+    return str === null || str === undefined || (typeof str === 'string' && str.trim().length === 0);
 }
 
-function formatCommands(name,commands) {
-    
+function formatCommands(name, commands) {
+
     commands = commands.map((cmd) => commandMapping(cmd));
     commands = filterForRemoteControl(commands);
     var result = "";
@@ -279,22 +392,22 @@ function formatCommands(name,commands) {
     return result;
 }
 
-function formatHeader(name,testCase) {
+function formatHeader(name, testCase) {
     var header = "";
     var openurl = "";
     header = options.header;
-    if ((name) && (name != "")) { header += name + "\n";   } 
-    else                        { header += "Test Case\n"; }
+    if ((name) && (name != "")) { header += name + "\n"; }
+    else { header += "Test Case\n"; }
     if (testCase.commands[0] != null) {
         var firstcmd = String(testCase.commands[0]);
-        if (firstcmd.startsWith("open")) { 
-            var firstcmds = [ firstcmd ];
+        if (firstcmd.startsWith("open")) {
+            var firstcmds = [firstcmd];
             firstcmds = filterForRemoteControl(firstcmds);
             firstcmd = firstcmds[0];
-            openurl = firstcmd.split(/\s+/).slice(1,2);
+            openurl = firstcmd.split(/\s+/).slice(1, 2);
             testCase.commands[0] = "# " + testCase.commands[0];
         }
-        else { 
+        else {
             openurl = testCase.getBaseURL();
         }
     }
@@ -304,7 +417,7 @@ function formatHeader(name,testCase) {
     return header;
 }
 
-function formatFooter(name,testCase) {
+function formatFooter(name, testCase) {
     var footer = '\n*** Keywords ***\n';
     // footer += "    [Teardown]  Close Browser\n";
     for (const key in this.robotKeywordReplace) {
@@ -334,14 +447,14 @@ this.playable = false;
 
 //Ham xu li comment
 function formatComment(comment) {
-    return comment.comment.replace(/.+/mg, function(str) {
-            return "// " + str;
-        });
+    return comment.comment.replace(/.+/mg, function (str) {
+        return "// " + str;
+    });
 }
 
-if      (bowser.chrome)  { this.active_browser = "chromium"; }
+if (bowser.chrome) { this.active_browser = "chromium"; }
 else if (bowser.firefox) { this.active_browser = "firefox"; }
-else                     { this.active_browser = "chromium"; }
+else { this.active_browser = "chromium"; }
 
 //cai dat cac thuoc tinh hien thi tren plugin
 this.options = {
@@ -353,7 +466,7 @@ this.options = {
     defaultExtension: 'robot-playwright'
 };
 
-this.configForm = 
+this.configForm =
     '<description>Variable for Selenium instance</description>' +
     '<textbox id="options_receiver" />' +
     '<description>Environment</description>' +
@@ -391,7 +504,7 @@ options.footer = '';
 //     '    Close Browser\n\n' +
 //     'Open New Page\n' +
 // '    [Arguments]    ${url}\n' +
-// '    New Page    ${url}    domcontentloaded\n';  
+// '    New Page    ${url}    domcontentloaded\n';
 // options.footer =
 //     '\n*** Keywords ***\n' +
 //     'open\n' +

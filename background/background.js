@@ -19,6 +19,22 @@ var master = {};
 var clickEnabled = true;
 const popupWindowIDs = [];
 
+var robotCommands = [
+    'assertUrl',
+    'assertInputValid',
+    'assertInputInvalid',
+    'assertInputValueMissing',
+    'assertInputTypeMismatch',
+    'assertInputPatternMismatch',
+    'assertInputTooShort',
+    'assertInputTooLong',
+    'assertInputRangeUnderflow',
+    'assertInputRangeOverflow',
+    'assertInputStepMismatch',
+    'assertInputBadInput',
+    'assertInputCustomError'
+]
+
 // open main window
 function openPanel(tab) {
     let contentWindowId = tab.windowId;
@@ -134,20 +150,16 @@ function createKrMenus() {
         documentUrlPatterns: ["<all_urls>"],
         contexts: ["all"]
     });
-    browser.contextMenus.create({
-        id: "robot.verifyUrl",
-        parentId: "robot",
-        title: "Robot.verifyUrl",
-        documentUrlPatterns: ["<all_urls>"],
-        contexts: ["all"]
-    });
-       
-    browser.contextMenus.create({
-        id: "robot.validationInput",
-        parentId: "robot",
-        title: "Robot.validationInput",
-        documentUrlPatterns: ["<all_urls>"],
-        contexts: ["all"]
+    robotCommands.forEach(cmd => {
+        var menuId = 'robot.' + cmd;
+        var title = 'Robot.' + cmd;
+        browser.contextMenus.create({
+            id: menuId,
+            parentId: "robot",
+            title: title,
+            documentUrlPatterns: ["<all_urls>"],
+            contexts: ["all"]
+            });
     });
 
     browser.contextMenus.create({
