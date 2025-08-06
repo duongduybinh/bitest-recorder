@@ -5,7 +5,7 @@ import { renderNewTestSuite } from "../testcase-grid/render-new-test-suite.js";
 import { renderNewTestCase } from "../testcase-grid/render-new-test-case.js";
 import { createTestCase, findTestCaseById } from "../../services/data-service/test-case-service.js";
 import { modifyCaseSuite } from "./modify-case-suite.js";
-import { trackingCreateTestCase, trackingCreateTestSuite } from "../../services/tracking-service/segment-tracking-service.js";
+// import { trackingCreateTestCase, trackingCreateTestSuite } from "../../services/tracking-service/segment-tracking-service.js";
 import { TestCommand } from "../../models/test-model/test-command.js";
 import { renderCommandElement } from "./render-command-element.js";
 import { reAssignId } from "./re-assign-id.js";
@@ -26,7 +26,7 @@ function addCommand(command_name, command_target_array, command_value, auto, ins
     if (!selectedTestSuite) {
         testSuite = createTestSuite("Untitled Test Suite");
         renderNewTestSuite("Untitled Test Suite", testSuite.id);
-        trackingCreateTestSuite('Record', 'Untitled Test Case');
+        // trackingCreateTestSuite('Record', 'Untitled Test Case');
     } else {
         const testSuiteID = selectedTestSuite.id;
         testSuite = findTestSuiteById(testSuiteID);
@@ -34,7 +34,7 @@ function addCommand(command_name, command_target_array, command_value, auto, ins
     if (!selectedTestCase) {
         testCase = createTestCase("Untitled Test Case", testSuite);
         renderNewTestCase("Untitled Test Case", testCase.id);
-        trackingCreateTestCase('Record', 'Untitled Test Case');
+        // trackingCreateTestCase('Record', 'Untitled Test Case');
     } else {
         const testCaseID = selectedTestCase.id;
         testCase = findTestCaseById(testCaseID);

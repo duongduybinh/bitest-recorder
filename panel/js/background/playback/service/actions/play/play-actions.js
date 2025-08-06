@@ -5,7 +5,7 @@ import {
     isCommandExcluded,
     isSelfHealingEnable
 } from "../../../../../UI/services/self-healing-service/utils.js";
-import { trackingExecuteTestSuites, trackingTestCase } from "../../../../../UI/services/tracking-service/segment-tracking-service.js";
+// import { trackingExecuteTestSuites, trackingTestCase } from "../../../../../UI/services/tracking-service/segment-tracking-service.js";
 import { executeWriteToCSV } from "./execute-writeToCSV.js";
 import { executeAppendToCSV } from "./execute-appendToCSV.js";
 import { executeStoreCSV } from "./execute-storeCSV.js";
@@ -127,11 +127,11 @@ const stopAction = async() => {
 
     if (isPlayingSuite) {
         isPlayingSuite = false;
-        trackingExecuteTestSuites('suite');
+        // trackingExecuteTestSuites('suite');
     }
     if (isPlayingAll) {
         isPlayingAll = false;
-        trackingExecuteTestSuites('all');
+        // trackingExecuteTestSuites('all');
     }
 
     switchPS();
@@ -264,7 +264,7 @@ function playSuite(i) {
         isPlayingSuite = false;
         switchPS();
         if (!isPlayingAll) {
-            trackingExecuteTestSuites('suite');
+            // trackingExecuteTestSuites('suite');
             trackingLocalPlayback("selfHealing", isSelfHealingInvoke);
         }
     }
@@ -288,7 +288,7 @@ function playSuites(i) {
     } else {
         isPlayingAll = false;
         switchPS();
-        trackingExecuteTestSuites('all');
+        // trackingExecuteTestSuites('all');
         trackingLocalPlayback("selfHealing", isSelfHealingInvoke);
     }
 }
@@ -419,7 +419,8 @@ function initializePlayingProgress(isDbclick) {
 
 function executionLoop() {
     const testCase = findTestCaseById(currentTestCaseId);
-
+    console.log('play-action executionLoop()');
+    console.log(testCase);
     handleDisplayVariables();
 
     if (currentPlayingCommandIndex + 1 >= testCase.getTestCommandCount()) {
@@ -431,7 +432,7 @@ function executionLoop() {
                 updateTestCaseStatusUI();
             }
             if (trackingPlay) {
-                trackingTestCase('execute', null, true);
+                // trackingTestCase('execute', null, true);
                 trackingPlay = false;
                 if (!isPlayingAll && !isPlayingSuite) {
                     //only for execute test case
@@ -484,6 +485,9 @@ function executionLoop() {
     let commandName = testCommand.name;
     let commandTarget = testCommand.defaultTarget;
     let commandValue = testCommand.value;
+    console.log('Test nè');
+    console.log(commandName);
+    console.log(testCase.commands);
 
     if (commandName === "") {
         return Promise.reject("no command name");
@@ -492,6 +496,7 @@ function executionLoop() {
     setColor(currentPlayingCommandIndex + 1, "executing");
 
     return delay($('#slider').slider("option", "value")).then(function() {
+        console.log('play-action executionLoop() return delay.then()');
         if (!blockStack) {
             blockStack = [];
         }
@@ -509,14 +514,20 @@ function executionLoop() {
                 (lastBlock.isIf && !lastBlock.condition) ||
                 (lastBlock.isWhile && !lastBlock.condition));
         if (isExtCommand(commandName) && !skipped) {
+            console.log('play-action executionLoop() return delay.then() isExtCommand');
             sideex_log.info("Executing: | " + commandName + " | " + commandTarget + " | " + commandValue + " |");
             commandName = formalCommands[commandName.toLowerCase()];
             let upperCase = commandName.charAt(0).toUpperCase() + commandName.slice(1);
             commandTarget = convertVariableToString(commandTarget);
-            return (extCommand["do" + upperCase](commandTarget, commandValue))
+            console.log(extCommand);
+            console.log("extCommand[do" + upperCase+ ']');
+            var result =  (extCommand["do" + upperCase](commandTarget, commandValue))
                 .then(function() {
                     setColor(currentPlayingCommandIndex + 1, "success");
                 }).then(executionLoop);
+            console.log(result);
+            
+            return result;
         } else {
             return doPreparation()
                 .then(doPrePageWait)
@@ -572,17 +583,17 @@ function switchPS() {
         document.getElementById("playback").style.display = "";
         document.getElementById("stop").style.display = "none";
 
-        $.ajax({
-            url: testOpsUrls.getFirstProject,
-            type: 'GET',
-        }).then(projects => {
-            if (projects.length === 1) {
-                let project = projects[0];
-                uploadTestReportsToTestOps(null, project.id, true);
-            } else {
-                sideex_log.appendA('Upload this execution to Katalon TestOps', 'ka-upload-log');
-            }
-        })
+        // $.ajax({
+        //     url: testOpsUrls.getFirstProject,
+        //     type: 'GET',
+        // }).then(projects => {
+        //     if (projects.length === 1) {
+        //         let project = projects[0];
+        //         uploadTestReportsToTestOps(null, project.id, true);
+        //     } else {
+        //         sideex_log.appendA('Upload this execution to Katalon TestOps', 'ka-upload-log');
+        //     }
+        // })
     }
 }
 
@@ -621,7 +632,7 @@ function catchPlayingError(reason) {
             updateTestCaseStatusUI();
         }
         if (trackingPlay) {
-            trackingTestCase('execute', null, false);
+            // trackingTestCase('execute', null, false);
             trackingPlay = false;
         }
         if (!isPlayingSuite && !isPlayingAll) {
@@ -750,12 +761,13 @@ function doDomWait() {
 async function doCommand() {
     const selectedTestCase = getSelectedCase();
     const testCase = findTestCaseById(selectedTestCase.id);
-
+    console.log('doCommand()');
     let commands = testCase.commands;
     const testCommand = commands[currentPlayingCommandIndex];
     let commandName = testCommand.name;
     let commandTarget = testCommand.defaultTarget;
     let commandValue = testCommand.value;
+    console.log(testCommand);
 
     possibleTargets = await getPossibleTargetList(testCommand);
     let result = await runCommand(commands, commandName, commandTarget, commandValue);
@@ -772,6 +784,7 @@ async function doCommand() {
 }
 
 async function runCommand(commands, commandName, commandTarget, commandValue) {
+    console.log('runCommand ' + commandName);
     let originalCommandTarget = commandTarget;
     if (commandName.indexOf("${") !== -1) {
         commandName = convertVariableToString(commandName);
@@ -832,6 +845,13 @@ async function runCommand(commands, commandName, commandTarget, commandValue) {
                     result: 'success'
                 };
             }
+
+            if (commandName.startsWith('robot.')){
+                return {
+                    result: 'success'
+                }; 
+            }
+
             let originalCommandTarget = commandTarget;
             // in case blockStack is undefined
             if (!blockStack) {
@@ -1142,7 +1162,7 @@ async function runCommand(commands, commandName, commandTarget, commandValue) {
                         updateTestCaseStatusUI();
                     }
                     if (trackingPlay) {
-                        trackingTestCase('execute', null, false);
+                        // trackingTestCase('execute', null, false);
                         trackingPlay = false;
                     }
                     if (!isPlayingSuite && !isPlayingAll) {

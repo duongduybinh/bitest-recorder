@@ -1,4 +1,4 @@
-import {trackingSegment} from "../../tracking/segment-tracking-service.js";
+// import {trackingSegment} from "../../tracking/segment-tracking-service.js";
 
 class UndoCommand { //implements ICommand
     constructor(commandHistory) {
@@ -10,7 +10,7 @@ class UndoCommand { //implements ICommand
         const lastCommand = this.commandHistory.popFromUndoStack();
         if (lastCommand) {
             lastCommand.undo();
-            trackingSegment("kru_undo");
+            // trackingSegment("kru_undo");
         }
 
     }

@@ -57,6 +57,7 @@ class ExtCommand {
     }
 
     init() {
+        console.log('ExtCommand Init()');
         this.attach();
         this.playingTabNames = {};
         this.playingTabIds = {};
@@ -140,6 +141,8 @@ class ExtCommand {
     }
 
     sendCommand(command, target, value, top) {
+        console.log('sendCommand ' + command);
+        console.log(browser);
         let tabId = this.getCurrentPlayingTabId();
         let frameId = this.getCurrentPlayingFrameId();
         return browser.tabs.sendMessage(tabId, {

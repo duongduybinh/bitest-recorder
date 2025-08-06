@@ -253,7 +253,7 @@ function setUserLogin(rs, isLoggedIn) {
                     })
                     .then((check) => {
                         if (check) {
-                            segmentTrackingService().then((r) => r.trackingLogin());
+                            // segmentTrackingService().then((r) => r.trackingLogin());
                             _gaq.push(['_trackEvent', 'kru_registration', 'kru_sign_in']);
                             $(dialogSignIn).dialog("close");
                         } else {
@@ -309,11 +309,11 @@ function getKatalonAPI() {
     return url;
 }
 
-const segmentTrackingService = async function() {
-    const segmentSer = await
-    import ("../../panel/js/tracking/segment-tracking-service.js");
-    return segmentSer;
-};
+// const segmentTrackingService = async function() {
+//     const segmentSer = await
+//     import ("../../panel/js/tracking/segment-tracking-service.js");
+//     return segmentSer;
+// };
 
 const dialogSignIn = $('<div id="dialgue"></div>')
     .html(loginSignup)
@@ -434,7 +434,7 @@ function setLoginOrSignup() {
                 .then((rp) => rp.json())
                 .then(async(rs) => {
                     if (!rs.error) {
-                        segmentTrackingService().then((r) => r.trackingSignup());
+                        // segmentTrackingService().then((r) => r.trackingSignup());
                         _gaq.push(['_trackEvent', 'kru_registration', 'kru_sign_in']);
                         await setUserLogin(rs, false);
                     } else {

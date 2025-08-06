@@ -1,4 +1,4 @@
-import {trackingSegment} from "../../tracking/segment-tracking-service.js";
+// import {trackingSegment} from "../../tracking/segment-tracking-service.js";
 
 class RedoCommand { //implements ICommand
     constructor(commandHistory) {
@@ -11,7 +11,7 @@ class RedoCommand { //implements ICommand
         if (lastCommand) {
             this.commandHistory.pushToUndoStack(lastCommand);
             lastCommand.redo();
-            trackingSegment("kru_redo");
+            // trackingSegment("kru_redo");
         }
     }
 }

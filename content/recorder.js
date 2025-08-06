@@ -100,6 +100,7 @@ class Recorder {
 
     record(command, target, value, insertBeforeLastCommand, actualFrameLocation) {
         let self = this;
+        console.log('Recorder.record:' + command + ', ' + target + ', ' + value);
         browser.runtime.sendMessage({
             command: command,
             target: target,

@@ -28,7 +28,6 @@
         "debugger"
     ],
 
-    "content_security_policy": "script-src 'self' 'unsafe-eval' https://ssl.google-analytics.com; object-src 'self'",
 
     "content_scripts": [{
         "matches": ["<all_urls>"],

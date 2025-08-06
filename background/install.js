@@ -5,7 +5,7 @@ browser.runtime.onInstalled.addListener(function (details) {
         browser.tabs.create({
             url: 'https://www.katalon.com/sign-up/?utm_source=browser%20store&utm_campaign=installed%20KR'
         });
-        segment().then(service => service.trackingInstallApp());
+        // segment().then(service => service.trackingInstallApp());
         browser.storage.local.set( {UIStyle: "new"} );
     }
     else if (details.reason === 'update') {
@@ -22,9 +22,9 @@ browser.runtime.onInstalled.addListener(function (details) {
             } else {
                 UIStyle = result.UIStyle;
             }
-            import('../panel/js/UI/services/tracking-service/segment-tracking-service.js').then(module => {
-                module.trackingSegment("kru_new_uiux", {is_using_new_uiux: UIStyle !== "old"});
-            });
+            // import('../panel/js/UI/services/tracking-service/segment-tracking-service.js').then(module => {
+            //     module.trackingSegment("kru_new_uiux", {is_using_new_uiux: UIStyle !== "old"});
+            // });
             browser.storage.local.set( {UIStyle} );
         });
     }
@@ -38,22 +38,22 @@ function getUserUIStyle(){
 }
 
 browser.runtime.onMessage.addListener(function (message) {
-    browser.storage.local.get('segment').then(function (result) {
-        if (result.segment) {
-            let segment = result.segment;
-            browser.runtime.setUninstallURL(`${browser.runtime.getManifest().segment_url}/segment-kr/tracking?userId=${segment.userId || ''}&user=${encodeURI(segment.user) || ''}`);
-        } else {
-            browser.runtime.setUninstallURL(`${browser.runtime.getManifest().segment_url}/segment-kr/tracking`);
-        }
-    });
+    // browser.storage.local.get('segment').then(function (result) {
+    //     if (result.segment) {
+    //         let segment = result.segment;
+    //         browser.runtime.setUninstallURL(`${browser.runtime.getManifest().segment_url}/segment-kr/tracking?userId=${segment.userId || ''}&user=${encodeURI(segment.user) || ''}`);
+    //     } else {
+    //         browser.runtime.setUninstallURL(`${browser.runtime.getManifest().segment_url}/segment-kr/tracking`);
+    //     }
+    // });
 });
 
 // KAT-END
 
-async function segment() {
-    const segmentSer =  await import('../panel/js/UI/services/tracking-service/segment-tracking-service.js');
-    return segmentSer;
-}
+// async function segment() {
+//     const segmentSer =  await import('../panel/js/UI/services/tracking-service/segment-tracking-service.js');
+//     return segmentSer;
+// }
 
 
 const notify = "Katalon-update";

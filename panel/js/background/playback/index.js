@@ -26,6 +26,7 @@ window.onload = function () {
   });
   $("#playback").click(function () {
     let command = commandFactory.createCommand("playTestCase");
+    console.log(command);
     command.execute();
   });
   $("#stop").click(function () {

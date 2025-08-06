@@ -43,23 +43,23 @@ function restoreBackupData(backupData) {
 }
 
 function refreshStatusBar() {
-    $.ajax({
-        url: testOpsUrls.getUserInfo,
-        type: 'GET',
-        success: function(data) {
-            if (data.email) {
-                showBackupEnabledStatus();
-                if (document.getElementById("logcontainer").childElementCount === 0){
-                    $("#ka-upload").addClass("disable");
-                }
-            } else {
-                showBackupDisabledStatus();
-            }
-        },
-        error: function() {
-            showBackupDisabledStatus();
-        },
-    });
+    // $.ajax({
+    //     url: testOpsUrls.getUserInfo,
+    //     type: 'GET',
+    //     success: function(data) {
+    //         if (data.email) {
+    //             showBackupEnabledStatus();
+    //             if (document.getElementById("logcontainer").childElementCount === 0){
+    //                 $("#ka-upload").addClass("disable");
+    //             }
+    //         } else {
+    //             showBackupDisabledStatus();
+    //         }
+    //     },
+    //     error: function() {
+    //         showBackupDisabledStatus();
+    //     },
+    // });
 }
 
 $(function() {

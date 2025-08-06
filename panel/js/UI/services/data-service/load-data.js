@@ -11,7 +11,7 @@ import { addTestSuite, getAllTestSuites } from "./test-suite-service.js";
 function mappingDataObject(data) {
     data.testSuites.map(testSuite => {
         const testCases = testSuite.testCases?.map(testCase => {
-            const commands = testCase.commands?.map(command => new TestCommand(command.name, command.defaultTarget, command.targets, command.value));
+            const commands = testCase.commands?.map(command => new TestCommand(command.name, command.defaultTarget, command.targets, command.value, command.skip ?? false));
             return new TestCase(testCase.name, commands);
         });
         const KRTestSuite = new TestSuite(testSuite.name, testCases);

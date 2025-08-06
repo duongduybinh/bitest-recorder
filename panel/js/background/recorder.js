@@ -2,7 +2,7 @@ import { createTestSuite, findTestSuiteById } from "../UI/services/data-service/
 import { renderNewTestSuite } from "../UI/view/testcase-grid/render-new-test-suite.js";
 import { createTestCase, findTestCaseById } from "../UI/services/data-service/test-case-service.js";
 import { renderNewTestCase } from "../UI/view/testcase-grid/render-new-test-case.js";
-import { trackingCreateTestCase, trackingCreateTestSuite } from "../UI/services/tracking-service/segment-tracking-service.js";
+// import { trackingCreateTestCase, trackingCreateTestSuite } from "../UI/services/tracking-service/segment-tracking-service.js";
 import { deleteCommand } from "../UI/services/records-grid-service/actions.js";
 import { getSelectedCase } from "../UI/view/testcase-grid/selected-case.js";
 import { addCommandAuto, addCommandBeforeLastCommand } from "../UI/view/records-grid/add-command.js";
@@ -182,7 +182,7 @@ class BackgroundRecorder {
         if (!selectedTestSuite) {
             testSuite = createTestSuite("Untitled Test Suite");
             renderNewTestSuite("Untitled Test Suite", testSuite.id);
-            trackingCreateTestSuite('Record','Untitled Test Suite');
+            // trackingCreateTestSuite('Record','Untitled Test Suite');
         } else{
             const testSuiteID = selectedTestSuite.id;
             testSuite = findTestSuiteById(testSuiteID);
@@ -190,7 +190,7 @@ class BackgroundRecorder {
         if (!selectedTestCase){
             testCase = createTestCase("Untitled Test Case", testSuite);
             renderNewTestCase("Untitled Test Case", testCase.id);
-            trackingCreateTestCase('Record','Untitled Test Case');
+            // trackingCreateTestCase('Record','Untitled Test Case');
         } else{
             const testCaseID = selectedTestCase.id;
             testCase = findTestCaseById(testCaseID);
@@ -245,7 +245,7 @@ class BackgroundRecorder {
             this.currentRecordingWindowId[testCaseId] = sender.tab.windowId;*/
 
         }
-        if (message.frameLocation !== this.currentRecordingFrameLocation[testCaseId]) {
+        if (message.frameLocation && message.frameLocation !== this.currentRecordingFrameLocation[testCaseId]) {
             let newFrameLevels = message.frameLocation.split(':');
             let oldFrameLevels = this.currentRecordingFrameLocation[testCaseId].split(':');
             while (oldFrameLevels.length > newFrameLevels.length) {

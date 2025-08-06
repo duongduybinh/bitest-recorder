@@ -28,13 +28,13 @@ function refreshStatusBar() {
         type: 'GET',
         success: function(data) {
             if (data.email) {
-                showBackupEnabledStatus();
+                // showBackupEnabledStatus();
             } else {
-                showBackupDisabledStatus();
+                // showBackupDisabledStatus();
             }
         },
         error: function() {
-            showBackupDisabledStatus();
+            // showBackupDisabledStatus();
         },
     });
 }

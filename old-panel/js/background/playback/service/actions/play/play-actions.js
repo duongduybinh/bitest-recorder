@@ -5,7 +5,7 @@ import {
     isCommandExcluded,
     isSelfHealingEnable
 } from "../../../../../UI/services/self-healing-service/utils.js";
-import { trackingExecuteTestSuites, trackingTestCase } from "../../../../../UI/services/tracking-service/segment-tracking-service.js";
+// import { trackingExecuteTestSuites, trackingTestCase } from "../../../../../UI/services/tracking-service/segment-tracking-service.js";
 import { executeWriteToCSV } from "./execute-writeToCSV.js";
 import { executeAppendToCSV } from "./execute-appendToCSV.js";
 import { executeStoreCSV } from "./execute-storeCSV.js";
@@ -125,11 +125,11 @@ const stopAction = async() => {
 
     if (isPlayingSuite) {
         isPlayingSuite = false;
-        trackingExecuteTestSuites('suite');
+        // trackingExecuteTestSuites('suite');
     }
     if (isPlayingAll) {
         isPlayingAll = false;
-        trackingExecuteTestSuites('all');
+        // trackingExecuteTestSuites('all');
     }
 
     switchPS();
@@ -247,7 +247,7 @@ function playSuite(i) {
         isPlayingSuite = false;
         switchPS();
         if (!isPlayingAll) {
-            trackingExecuteTestSuites('suite');
+            // trackingExecuteTestSuites('suite');
             trackingLocalPlayback("selfHealing", isSelfHealingInvoke);
         }
     }
@@ -271,7 +271,7 @@ function playSuites(i) {
     } else {
         isPlayingAll = false;
         switchPS();
-        trackingExecuteTestSuites('all');
+        // trackingExecuteTestSuites('all');
         trackingLocalPlayback("selfHealing", isSelfHealingInvoke);
     }
 }
@@ -414,7 +414,7 @@ function executionLoop() {
                 updateTestCaseStatusUI();
             }
             if (trackingPlay) {
-                trackingTestCase('execute', null, true);
+                // trackingTestCase('execute', null, true);
                 trackingPlay = false;
                 if (!isPlayingAll && !isPlayingSuite) {
                     //only for execute test case
@@ -605,7 +605,7 @@ function catchPlayingError(reason) {
             updateTestCaseStatusUI();
         }
         if (trackingPlay) {
-            trackingTestCase('execute', null, false);
+            // trackingTestCase('execute', null, false);
             trackingPlay = false;
         }
         if (!isPlayingSuite && !isPlayingAll) {
@@ -816,6 +816,12 @@ async function runCommand(commands, commandName, commandTarget, commandValue) {
                     result: 'success'
                 };
             }
+            if (commandName.startsWith('robot.')){
+                return {
+                    result: 'success'
+                }; 
+            }
+
             let originalCommandTarget = commandTarget;
             // in case blockStack is undefined
             if (!blockStack) {
@@ -829,11 +835,11 @@ async function runCommand(commands, commandName, commandTarget, commandValue) {
                 lastBlock = blockStack[blockStack.length - 1];
             }
             // check if this block is skipped
-            let skipped = lastBlock &&
+            let skipped = skip || (lastBlock &&
                 (lastBlock.dummy ||
                     (lastBlock.isLoadVars && lastBlock.done) ||
                     (lastBlock.isIf && !lastBlock.condition) ||
-                    (lastBlock.isWhile && !lastBlock.condition));
+                    (lastBlock.isWhile && !lastBlock.condition)));
             // normal command: just skipped
             if (skipped && (['loadVars', 'endLoadVars', 'if', 'else', 'elseIf', 'endIf', 'while', 'endWhile'].indexOf(commandName) < 0)) {
                 return {
@@ -1126,7 +1132,7 @@ async function runCommand(commands, commandName, commandTarget, commandValue) {
                         updateTestCaseStatusUI();
                     }
                     if (trackingPlay) {
-                        trackingTestCase('execute', null, false);
+                        // trackingTestCase('execute', null, false);
                         trackingPlay = false;
                     }
                     if (!isPlayingSuite && !isPlayingAll) {

@@ -1,5 +1,5 @@
 import { getChangedProperty } from "../../panel/js/UI/services/tracking-service/playback-local-tracking.js";
-import { trackingSegment } from "../../panel/js/UI/services/tracking-service/segment-tracking-service.js";
+// import { trackingSegment } from "../../panel/js/UI/services/tracking-service/segment-tracking-service.js";
 
 function popupSelfHealingRating() {
   let popup = $("#self-healing-rating");
@@ -61,7 +61,7 @@ function popupSelfHealingRating() {
     if (userChoiceInput === undefined){
       userChoiceInput = "dunnoyet";
     }
-    trackingSegment("kru_rate_self_healing", {"userAnswer": userChoiceInput})
+    // trackingSegment("kru_rate_self_healing", {"userAnswer": userChoiceInput})
     $(popup).hide();
   });
 }

@@ -1,6 +1,6 @@
 import { checkLoginOrSignupUser } from "../../../../../../content-marketing/panel/login-inapp.js";
 import { trackingLocalPlayback } from "../../../../UI/services/tracking-service/playback-local-tracking.js";
-import { trackingRecord } from "../../../../UI/services/tracking-service/segment-tracking-service.js";
+// import { trackingRecord } from "../../../../UI/services/tracking-service/segment-tracking-service.js";
 import { getSelectedSuite } from "../../../../UI/view/testcase-grid/selected-suite.js";
 import { findTestSuiteById } from "../../../../UI/services/data-service/test-suite-service.js";
 import { getAllTestCaseCount } from "../../../../UI/services/data-service/test-case-service.js";
@@ -20,7 +20,7 @@ const recordAction = async () => {
   isRecording = !isRecording;
   if (isRecording) {
     doRecord();
-    trackingRecord();
+    // trackingRecord();
   } else {
     if (getAllTestCaseCount() > 0) {
       //make sure that users is actually record a test case

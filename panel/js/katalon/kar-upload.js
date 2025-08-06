@@ -21,46 +21,46 @@ function updateBackupStatus(html) {
 
 function backupData() {
     return browser.storage.local.get(null).then(function(result) {
-        $.ajax({
-            url: testOpsUrls.getUploadUrlAvatar,
-            type: 'GET',
-            success: function(response) {
-                var path = response.path;
-                var uploadUrl = response.uploadUrl;
-                var data = JSON.stringify(result);
+        // $.ajax({
+        //     url: testOpsUrls.getUploadUrlAvatar,
+        //     type: 'GET',
+        //     success: function(response) {
+        //         var path = response.path;
+        //         var uploadUrl = response.uploadUrl;
+        //         var data = JSON.stringify(result);
 
-                $.ajax({
-                    url: uploadUrl,
-                    type: 'PUT',
-                    contentType: 'text/plain',
-                    data: data,
-                    success: function() {
-                        $.ajax({
-                            url: testOpsUrls.uploadBackup,
-                            type: 'POST',
-                            data: {
-                                uploadedPath: path
-                            },
-                            success: function() {
-                                showBackupEnabledStatus();
-                            },
-                            error: function() {
-                                console.log(arguments);
-                                showBackupDisabledStatus();
-                            }
-                        });
-                    },
-                    error: function() {
-                        console.log(arguments);
-                        showBackupDisabledStatus();
-                    }
-                });
-            },
-            error: function() {
-                showBackupDisabledStatus();
-                console.log(arguments);
-            }
-        });
+        //         $.ajax({
+        //             url: uploadUrl,
+        //             type: 'PUT',
+        //             contentType: 'text/plain',
+        //             data: data,
+        //             success: function() {
+        //                 $.ajax({
+        //                     url: testOpsUrls.uploadBackup,
+        //                     type: 'POST',
+        //                     data: {
+        //                         uploadedPath: path
+        //                     },
+        //                     success: function() {
+        //                         showBackupEnabledStatus();
+        //                     },
+        //                     error: function() {
+        //                         console.log(arguments);
+        //                         showBackupDisabledStatus();
+        //                     }
+        //                 });
+        //             },
+        //             error: function() {
+        //                 console.log(arguments);
+        //                 showBackupDisabledStatus();
+        //             }
+        //         });
+        //     },
+        //     error: function() {
+        //         showBackupDisabledStatus();
+        //         console.log(arguments);
+        //     }
+        // });
     });
 }
 

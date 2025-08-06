@@ -1,5 +1,5 @@
 import { createNewTour } from "../helper/custom-bootstrap-tour.js";
-import { trackingSegment } from "../../tracking/segment-tracking-service.js";
+// import { trackingSegment } from "../../tracking/segment-tracking-service.js";
 import {
   displayFinishDialog,
   displayWelcomeDialog,
@@ -40,7 +40,7 @@ class TourService {
       action["user_type"] = this.userChoice;
       displayFinishDialog();
     }
-    trackingSegment("kru_onboarding", action);
+    // trackingSegment("kru_onboarding", action);
     browser.storage.local.set({ finnishOnboarding: true });
   }
 

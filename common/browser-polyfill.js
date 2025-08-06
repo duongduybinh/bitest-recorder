@@ -584,8 +584,17 @@
        */
       const makeCallback = promise => {
         return (...callbackArgs) => {
-          if (chrome.runtime.lastError) {
-            promise.reject(chrome.runtime.lastError);
+          const err = chrome.runtime?.lastError;
+          if (err) {
+            try
+            {
+              console.log(err);
+              console.log(promise);
+              promise?.reject(err);
+            }catch (e){
+              console.log(e);
+            }
+            
           } else if (callbackArgs.length === 1) {
             promise.resolve(callbackArgs[0]);
           } else {
@@ -626,7 +635,11 @@
           }
 
           return new Promise((resolve, reject) => {
-            target[name](...args, makeCallback({ resolve, reject }));
+             try {
+              target[name](...args, makeCallback({ resolve, reject }));
+            } catch (e) {
+              reject(e); // Nếu API throw lỗi sync
+            }
           });
         };
       };

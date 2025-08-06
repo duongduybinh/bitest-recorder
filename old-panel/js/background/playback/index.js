@@ -6,9 +6,9 @@ window.extCommand = new ExtCommand();
 window.currentPlayingFromHereCommandIndex = 0;
 
 
-window.segmentService = async function () {
-  return await import('../../UI/services/tracking-service/segment-tracking-service.js');
-}
+// window.segmentService = async function () {
+//   return await import('../../UI/services/tracking-service/segment-tracking-service.js');
+// }
 
 
 window.onload = function () {

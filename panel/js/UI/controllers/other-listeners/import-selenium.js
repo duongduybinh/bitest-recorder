@@ -1,4 +1,4 @@
-import { trackingSegment } from "../../services/tracking-service/segment-tracking-service.js";
+// import { trackingSegment } from "../../services/tracking-service/segment-tracking-service.js";
 import { mappingSeleniumTestObjectToKRTestObject } from "../../services/selenium-service/mapping-selenium-test-bbject-to-kr-test-object.js";
 import { displayNewTestSuite } from "../../view/testcase-grid/display-new-test-suite.js";
 import { readJsonFromFile } from "../../services/helper-service/readJsonFromFile.js";
@@ -61,7 +61,7 @@ $(document).ready(function () {
     for (let i = 0; i < this.files.length; i++) {
       testCaseNum += await loadSideFile(this.files[i]);
     }
-    trackingSegment("kru_selenium_ide_import", { numberOfTest: testCaseNum });
+    // trackingSegment("kru_selenium_ide_import", { numberOfTest: testCaseNum });
     this.value = null;
   }, false);
 });

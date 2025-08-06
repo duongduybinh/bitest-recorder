@@ -120,14 +120,36 @@ browser.windows.onRemoved.addListener(function(windowId) {
     }
 });
 
-async function segment() {
-    const segmentSer =  await import('../panel/js/UI/services/tracking-service/segment-tracking-service.js');
-    return segmentSer;
-}
+// async function segment() {
+//     // const segmentSer =  await import('../panel/js/UI/services/tracking-service/segment-tracking-service.js');
+//     return undefined// segmentSer;
+// }
 
 
 // context menu
 function createKrMenus() {
+    browser.contextMenus.create({
+        id: "robot",
+        title: "Robot Framework (Playwright)",
+        documentUrlPatterns: ["<all_urls>"],
+        contexts: ["all"]
+    });
+    browser.contextMenus.create({
+        id: "robot.verifyUrl",
+        parentId: "robot",
+        title: "Robot.verifyUrl",
+        documentUrlPatterns: ["<all_urls>"],
+        contexts: ["all"]
+    });
+       
+    browser.contextMenus.create({
+        id: "robot.validationInput",
+        parentId: "robot",
+        title: "Robot.validationInput",
+        documentUrlPatterns: ["<all_urls>"],
+        contexts: ["all"]
+    });
+
     browser.contextMenus.create({
         id: "verifyText",
         title: "verifyText",

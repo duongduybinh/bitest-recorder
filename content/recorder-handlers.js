@@ -448,19 +448,27 @@ Recorder.addEventHandler('checkPageLoaded', 'readystatechange', function(event) 
 Recorder.addEventHandler('contextMenu', 'contextmenu', function(event) {
     var myPort = browser.runtime.connect();
     var tmpText = this.locatorBuilders.buildAll(event.target);
+    var tmpUrl = event.target.ownerDocument.location.href;
     var tmpVal = getText(event.target);
     var tmpTitle = normalizeSpaces(event.target.ownerDocument.title);
     var self = this;
+
     myPort.onMessage.addListener(function portListener(m) {
-        if (m.cmd.includes("Text")) {
-            self.record(m.cmd, tmpText, tmpVal);
-        } else if (m.cmd.includes("Title")) {
-            self.record(m.cmd, [[tmpTitle]], '');
-        } else if (m.cmd.includes("Value")) {
-            self.record(m.cmd, tmpText, getInputValue(event.target));
-        } else if (m.cmd.includes('waitFor')) {
-            self.record(m.cmd, tmpText, '');
-        }
+        console.log("myPort.onMessage.addListener " + m.cmd);
+        console.log(m);
+        if(m.cmd != 'robot'){
+            if (m.cmd.includes("Text")) {
+                self.record(m.cmd, tmpText, tmpVal);
+            } else if (m.cmd.includes("Title")) {
+                self.record(m.cmd, [[tmpTitle]], '');
+            } else if (m.cmd.includes("Value")) {
+                self.record(m.cmd, tmpText, getInputValue(event.target));
+            } else if (m.cmd.includes('waitFor')) {
+                self.record(m.cmd, tmpText, '');
+            } else if (m.cmd.includes("Url")){
+                self.record(m.cmd, [[tmpUrl]],'');
+            }
+        }        
         myPort.onMessage.removeListener(portListener);
     });
 }, true);

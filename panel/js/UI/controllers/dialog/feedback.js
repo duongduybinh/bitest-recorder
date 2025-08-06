@@ -1,4 +1,4 @@
-import { trackingSegment } from "../../services/tracking-service/segment-tracking-service.js";
+// import { trackingSegment } from "../../services/tracking-service/segment-tracking-service.js";
 
 const htmlString = `
     <div class="header">
@@ -67,9 +67,9 @@ $(document).ready(function(){
   $("#feedback-send").click(function(event){
     const feedbackContent = $("#feedback-content").val();
     if (feedbackContent.length > 0){
-      trackingSegment("kr_feedback", {
-        feedback: feedbackContent
-      });
+      // trackingSegment("kr_feedback", {
+      //   feedback: feedbackContent
+      // });
       $("#feedback-status").css("display", "block");
     }
   });

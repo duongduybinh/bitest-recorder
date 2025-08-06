@@ -12,7 +12,7 @@ import {
 import { convertVariableToString, evalIfCondition, expandForStoreEval } from "./variable-sevice.js";
 import { ExtCommand } from "../../panel/js/background/window-controller.js";
 
-import { trackingExecuteTestSuite } from "../../panel/js/UI/services/tracking-service/segment-tracking-service.js"
+// import { trackingExecuteTestSuite } from "../../panel/js/UI/services/tracking-service/segment-tracking-service.js"
 
 let testSuiteData = [];
 let selectedCaseIndex = 0;
@@ -93,7 +93,7 @@ function playSuite(i) {
         play();
         nextCase(i);
     } else {
-        trackingExecuteTestSuite(testSuiteData["testSuiteName"], successedTestCases, failedTestCases, false, true)
+        // trackingExecuteTestSuite(testSuiteData["testSuiteName"], successedTestCases, failedTestCases, false, true)
         socketLog.emit('doneSuite', {
             mess: "Finnish executing",
             type: "info"

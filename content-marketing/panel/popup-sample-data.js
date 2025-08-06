@@ -1,5 +1,5 @@
 import { getChangedProperty } from "../../panel/js/UI/services/tracking-service/playback-local-tracking.js";
-import { trackingSegment } from "../../panel/js/UI/services/tracking-service/segment-tracking-service.js";
+// import { trackingSegment } from "../../panel/js/UI/services/tracking-service/segment-tracking-service.js";
 
 function popupRateUsDialog() {
   let popup = $("#addSampleDataDialog");
@@ -55,7 +55,7 @@ function popupRateUsDialog() {
     let userChoiceInput = $(
       "input:radio[name=addSample]:checked"
     ).val() ?? "false";
-    trackingSegment("kru_rate_sample_project", { isHelpful: userChoiceInput })
+    // trackingSegment("kru_rate_sample_project", { isHelpful: userChoiceInput })
     $(popup).hide();
   })
 }

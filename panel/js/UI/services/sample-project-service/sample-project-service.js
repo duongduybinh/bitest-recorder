@@ -1,7 +1,7 @@
 import { unmarshall } from "../helper-service/parser.js";
 import { addTestSuite } from "../data-service/test-suite-service.js"
 import { getTrackingPlayBackData } from "../tracking-service/playback-local-tracking.js";
-import { trackingSegment } from "../tracking-service/segment-tracking-service.js";
+// import { trackingSegment } from "../tracking-service/segment-tracking-service.js";
 import { sampleData } from "./sample-data.js";
 
 /**
@@ -44,7 +44,7 @@ const sampleDataTrackingService = async (sampleData, selectedSampleIndexes) => {
   if(!alreadyAddedSampleProject) {
     browser.storage.local.set({ addSample: { isAddSample: true, numOfExecution } });
   }
-  trackingSegment("kru_add_sample_project", { projectName: selectedSampleProjectNames });
+  // trackingSegment("kru_add_sample_project", { projectName: selectedSampleProjectNames });
 }
 
 export { addSampleData, sampleDataTrackingService, sampleData }

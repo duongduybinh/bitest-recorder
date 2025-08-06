@@ -1,5 +1,5 @@
 import { getTrackingPlayBackData } from "../tracking/playback-local-tracking.js";
-import { trackingSegment } from "../tracking/segment-tracking-service.js";
+// import { trackingSegment } from "../tracking/segment-tracking-service.js";
 
 
 const sampleData = [
@@ -855,7 +855,7 @@ async function addSample() {
   if(!alreadyAddedSampleProject) {
     browser.storage.local.set({ addSample: { isAddSample: true, numOfExecution } });
   }
-  trackingSegment("kru_add_sample_project", { projectName: trackingSample });
+  // trackingSegment("kru_add_sample_project", { projectName: trackingSample });
 
 }
 

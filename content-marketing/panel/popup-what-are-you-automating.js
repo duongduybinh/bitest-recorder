@@ -1,5 +1,5 @@
 import { getChangedProperty } from "../../panel/js/UI/services/tracking-service/playback-local-tracking.js";
-import { trackingSegment } from "../../panel/js/UI/services/tracking-service/segment-tracking-service.js";
+// import { trackingSegment } from "../../panel/js/UI/services/tracking-service/segment-tracking-service.js";
 
 function popupWhatAreYouAutomating() {
   let popup = $("#whatAreYouAutomatingPopup");
@@ -73,7 +73,7 @@ function popupWhatAreYouAutomating() {
 
   $("#whatAreYouAutomating-submit").click(function () {
     let userInput = $("#useCase").val();
-    trackingSegment("kru_popup_automation_use_case", { answer: userInput });
+    // trackingSegment("kru_popup_automation_use_case", { answer: userInput });
     $(popup).remove();
   })
 }

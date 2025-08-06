@@ -9,12 +9,14 @@ class TestCommand {
    * @param {string} defaultTarget
    * @param {string[]} targets
    * @param {string} value
+   * @param {boolean} skip
    */
-  constructor(name = "", defaultTarget = "", targets = [], value = "") {
+  constructor(name = "", defaultTarget = "", targets = [], value = "", skip = false) {
     this.name = name;
     this.defaultTarget = defaultTarget;
     this.targets = targets;
     this.value = value;
+    this.skip = skip;
   }
 }
 

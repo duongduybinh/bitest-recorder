@@ -2,7 +2,7 @@ import { readJsonFromFile } from "./service/load-file-service.js";
 import { appendSuitesToGrid } from "./view/test-suite-view.js";
 import { parseToRecorderTestSuites } from "./service/selenium-ide-parser-service.js";
 import { displayWarningIncompatibleCommands } from "./view/confirm-convert-dialog.js";
-import { trackingSegment } from "../tracking/segment-tracking-service.js";
+// import { trackingSegment } from "../tracking/segment-tracking-service.js";
 import { getIncompatibleCommands } from "./service/command-converter-service.js";
 
 
@@ -27,7 +27,7 @@ $(document).ready(function () {
       }
       testCaseNum += seleniumTestData.tests.length;
     }
-    trackingSegment("kru_selenium_ide_import", {numberOfTest: testCaseNum});
+    // trackingSegment("kru_selenium_ide_import", {numberOfTest: testCaseNum});
     this.value = null;
   }, false);
 });
