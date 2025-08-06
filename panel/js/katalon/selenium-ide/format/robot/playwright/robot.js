@@ -65,7 +65,7 @@ this.robotKeywordMapping = {
     verifyTitle: {
         command: 'Title Should Be',
         codes: [
-            "[Arguments]    ${selector}    ${expected}",
+            "[Arguments]    ${expected}",
             "Get Title    ==    ${expected}"
         ]
     },
@@ -111,7 +111,7 @@ this.robotKeywordMapping = {
     assertTitle: {
         command: 'Title Should Be',
         codes: [
-            "[Arguments]    ${selector}    ${expected}",
+            "[Arguments]    ${expected}",
             "Get Title    ==    ${expected}"
         ]
     },
@@ -156,7 +156,7 @@ this.robotKeywordMapping = {
     waitForTitle: {
         command: 'Title Should Be',
         codes: [
-            "[Arguments]    ${selector}    ${expected}",
+            "[Arguments]    ${expected}",
             "Get Title    ==    ${expected}"
         ]
     },
@@ -184,7 +184,7 @@ this.robotKeywordMapping = {
     assertUrl: {
         command: "Url Should Be",
         codes: [
-            "[Arguments]    ${selector}    ${expected}",
+            "[Arguments]    ${expected}",
             "Get Url    ==    ${expected}"
         ]
     },
