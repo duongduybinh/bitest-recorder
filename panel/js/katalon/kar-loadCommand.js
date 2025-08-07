@@ -1,6 +1,29 @@
 // load all Selenium IDE command
 function _loadSeleniumCommands() {
     var commands = [];
+    var robotCommands = [
+        'takeScreenShot',
+        'clickNoWaitAfter',
+        'assertUrl',
+        'waitForUrl',
+        'waitForTitle',
+        'assertInputValid',
+        'assertInputInvalid',
+        'assertInputValueMissing',
+        'assertInputTypeMismatch',
+        'assertInputPatternMismatch',
+        'assertInputTooShort',
+        'assertInputTooLong',
+        'assertInputRangeUnderflow',
+        'assertInputRangeOverflow',
+        'assertInputStepMismatch',
+        'assertInputBadInput',
+        'assertInputCustomError',
+        
+    ]
+    robotCommands.forEach(cmd =>{
+        commands.push('robot.' + cmd);
+    })
 
     var nonWaitActions = ['open', 'selectWindow', 'chooseCancelOnNextConfirmation', 'answerOnNextPrompt', 'close', 'setContext', 'setTimeout', 'selectFrame'];
 

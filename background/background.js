@@ -20,7 +20,11 @@ var clickEnabled = true;
 const popupWindowIDs = [];
 
 var robotCommands = [
+    'takeScreenShot',
+    'clickNoWaitAfter',
     'assertUrl',
+    'waitForUrl',
+    'waitForTitle',
     'assertInputValid',
     'assertInputInvalid',
     'assertInputValueMissing',
@@ -32,7 +36,8 @@ var robotCommands = [
     'assertInputRangeOverflow',
     'assertInputStepMismatch',
     'assertInputBadInput',
-    'assertInputCustomError'
+    'assertInputCustomError',
+    
 ]
 
 // open main window

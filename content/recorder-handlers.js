@@ -457,23 +457,38 @@ Recorder.addEventHandler('contextMenu', 'contextmenu', function(event) {
         console.log("myPort.onMessage.addListener " + m.cmd);
         console.log(m);
         if(m.cmd != 'robot'){
-            if (m.cmd.includes("Text")) {
-                self.record(m.cmd, tmpText, tmpVal);
-            } else if (m.cmd.includes("Title")) {
-                self.record(m.cmd, [[tmpTitle]], '');
-            } else if (m.cmd.includes("Value")) {
-                self.record(m.cmd, tmpText, getInputValue(event.target));
-            } else if (m.cmd.includes('waitFor')) {
-                self.record(m.cmd, tmpText, '');
-            } else if (m.cmd.includes("Url")){
-                self.record(m.cmd, [[tmpUrl]],'');
-            } else if (m.cmd.startsWith('robot.')){
+             if (m.cmd.startsWith('robot.')){
                 var cmdNotRobot = m.cmd.replace('robot.','');
-                if (cmdNotRobot.startsWith('assertInput'))
+                if (m.cmd.includes("Text")) {
+                    self.record(m.cmd, tmpText, tmpVal);
+                } else if (m.cmd.includes("Title")) {
+                    self.record(m.cmd, [[tmpTitle]], '');
+                } else if (m.cmd.includes("Value")) {
+                    self.record(m.cmd, tmpText, getInputValue(event.target));
+                } else if (m.cmd.includes("Url") || m.cmd.includes("Navigation") || m.cmd.includes("Location")){
+                    self.record(m.cmd, [[tmpUrl]],'');
+                } else if (m.cmd.includes('waitFor')) {
+                    self.record(m.cmd, tmpText, '');
+                }  else if (cmdNotRobot.startsWith('assertInput'))
+                    self.record(m.cmd, tmpText, '');
+                else if (cmdNotRobot.startsWith('click'))
                     self.record(m.cmd, tmpText, '');
                 else
                     self.record(m.cmd, tmpText, tmpVal);
+            } else{
+                if (m.cmd.includes("Text")) {
+                    self.record(m.cmd, tmpText, tmpVal);
+                } else if (m.cmd.includes("Title")) {
+                    self.record(m.cmd, [[tmpTitle]], '');
+                } else if (m.cmd.includes("Value")) {
+                    self.record(m.cmd, tmpText, getInputValue(event.target));
+                } else if (m.cmd.includes('waitFor')) {
+                    self.record(m.cmd, tmpText, '');
+                } else if (m.cmd.includes("Url")){
+                    self.record(m.cmd, [[tmpUrl]],'');
+                }
             }
+            
         }        
         myPort.onMessage.removeListener(portListener);
     });

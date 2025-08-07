@@ -588,8 +588,8 @@
           if (err) {
             try
             {
-              console.log(err);
-              console.log(promise);
+              // console.log(err);
+              // console.log(promise);
               promise?.reject(err);
             }catch (e){
               console.log(e);

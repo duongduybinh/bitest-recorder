@@ -770,7 +770,11 @@ async function doCommand() {
     console.log(testCommand);
 
     possibleTargets = await getPossibleTargetList(testCommand);
-    let result = await runCommand(commands, commandName, commandTarget, commandValue);
+    let result = {
+        result: 'success'
+    };
+    if(!commandName.startsWith('robot.'))
+        result = await runCommand(commands, commandName, commandTarget, commandValue);
     let optionList = testCommand.targets;
 
     if (result &&
