@@ -458,23 +458,48 @@ Recorder.addEventHandler('contextMenu', 'contextmenu', function(event) {
         console.log(m);
         if(m.cmd != 'robot'){
              if (m.cmd.startsWith('robot.')){
-                var cmdNotRobot = m.cmd.replace('robot.','');
-                if (m.cmd.includes("Text")) {
-                    self.record(m.cmd, tmpText, tmpVal);
-                } else if (m.cmd.includes("Title")) {
-                    self.record(m.cmd, [[tmpTitle]], '');
-                } else if (m.cmd.includes("Value")) {
-                    self.record(m.cmd, tmpText, getInputValue(event.target));
-                } else if (m.cmd.includes("Url") || m.cmd.includes("Navigation") || m.cmd.includes("Location")){
-                    self.record(m.cmd, [[tmpUrl]],'');
-                } else if (m.cmd.includes('waitFor')) {
-                    self.record(m.cmd, tmpText, '');
-                }  else if (cmdNotRobot.startsWith('assertInput'))
-                    self.record(m.cmd, tmpText, '');
-                else if (cmdNotRobot.startsWith('click'))
-                    self.record(m.cmd, tmpText, '');
-                else
-                    self.record(m.cmd, tmpText, tmpVal);
+                
+                var cmdRobot = m.cmd.replace('robot.','');
+                if(cmdRobot.startsWith('vtiger.')) {
+                    cmdVTiger = m.cmd.replace('vtiger.','');
+                    switch (cmdVTiger){
+                        case 'clickAppMenu':
+                            
+                            break;
+                        case 'selectField':
+                            console.log('selectField');
+                            var elementSelect = $(event.target).closest('.fieldValue').find('select');
+                            console.log(elementSelect);
+                            var selector = this.locatorBuilders.buildAll(elementSelect);
+                            console.log(elementSelect);
+                            selector = this.locatorBuilders.buildAll(elementSelect.get(0));
+                            console.log(elementSelect);
+                            break;
+                        case 'logOut':
+
+                            break;
+                    }
+
+                }else {
+                    if (m.cmd.includes("Text")) {
+                        self.record(m.cmd, tmpText, tmpVal);
+                    } else if (m.cmd.includes("Title")) {
+                        self.record(m.cmd, [[tmpTitle]], '');
+                    } else if (m.cmd.includes("Value")) {
+                        self.record(m.cmd, tmpText, getInputValue(event.target));
+                    } else if (m.cmd.includes("Url") || m.cmd.includes("Navigation") || m.cmd.includes("Location")){
+                        self.record(m.cmd, [[tmpUrl]],'');
+                    } else if (m.cmd.includes('waitFor')) {
+                        self.record(m.cmd, tmpText, '');
+                    }  else if (cmdRobot.startsWith('assertInput'))
+                        self.record(m.cmd, tmpText, '');
+                    else if (cmdRobot.startsWith('click'))
+                        self.record(m.cmd, tmpText, '');
+                    else
+                        self.record(m.cmd, tmpText, tmpVal);
+                }
+
+                
             } else{
                 if (m.cmd.includes("Text")) {
                     self.record(m.cmd, tmpText, tmpVal);

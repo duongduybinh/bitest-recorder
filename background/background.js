@@ -21,6 +21,7 @@ const popupWindowIDs = [];
 
 var robotCommands = [
     'takeScreenShot',
+    'click',
     'clickNoWaitAfter',
     'assertUrl',
     'waitForUrl',
@@ -37,7 +38,12 @@ var robotCommands = [
     'assertInputStepMismatch',
     'assertInputBadInput',
     'assertInputCustomError',
-    
+]
+
+var robotVTigerCommands = [
+    'vtiger.clickAppMenu',
+    'vtiger.selectField',
+    // 'vtiger.logOut'
 ]
 
 // open main window
@@ -161,6 +167,25 @@ function createKrMenus() {
         browser.contextMenus.create({
             id: menuId,
             parentId: "robot",
+            title: title,
+            documentUrlPatterns: ["<all_urls>"],
+            contexts: ["all"]
+            });
+    });
+
+    browser.contextMenus.create({
+        id: "robot.vtiger",
+        title: "vTiger",
+        documentUrlPatterns: ["<all_urls>"],
+        contexts: ["all"]
+    });
+
+    robotVTigerCommands.forEach(cmd => {
+        var menuId = 'robot.vtiger.' + cmd;
+        var title = 'vTiger.' + cmd;
+        browser.contextMenus.create({
+            id: menuId,
+            parentId: "robot.vtiger",
             title: title,
             documentUrlPatterns: ["<all_urls>"],
             contexts: ["all"]
