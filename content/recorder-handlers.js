@@ -457,23 +457,20 @@ Recorder.addEventHandler('contextMenu', 'contextmenu', function(event) {
         console.log("myPort.onMessage.addListener " + m.cmd);
         console.log(m);
         if(m.cmd != 'robot'){
-             if (m.cmd.startsWith('robot.')){
+            if (m.cmd.startsWith('robot.')){
                 
                 var cmdRobot = m.cmd.replace('robot.','');
                 if(cmdRobot.startsWith('vtiger.')) {
-                    cmdVTiger = m.cmd.replace('vtiger.','');
+                    cmdVTiger = cmdRobot.replace('vtiger.','');
                     switch (cmdVTiger){
                         case 'clickAppMenu':
-                            
+                            self.record(m.cmd, tmpText, '');
                             break;
                         case 'selectField':
-                            console.log('selectField');
                             var elementSelect = $(event.target).closest('.fieldValue').find('select');
-                            console.log(elementSelect);
-                            var selector = this.locatorBuilders.buildAll(elementSelect);
-                            console.log(elementSelect);
-                            selector = this.locatorBuilders.buildAll(elementSelect.get(0));
-                            console.log(elementSelect);
+                            selector = this.locatorBuilders.buildAllx(elementSelect.get(0));
+                            tmpText = selector;
+                            self.record(m.cmd, tmpText, tmpVal);
                             break;
                         case 'logOut':
 

@@ -341,6 +341,31 @@ this.robotKeywordMapping = {
     takeScreenShot: {
         command: 'Take Screenshot',
         codes: []
+    },
+    'vtiger.selectField': {
+        command: 'Select Field',
+        codes: [
+            '[Arguments]    ${selector}    ${option}',
+            'Wait For Elements State    ${selector}    visible',
+            'Sleep    1s',
+            '${select2}    Evaluate JavaScript    ${selector}    (selector, option) =>',
+            "...    '#select2-results-' + $(selector).closest('.fieldValue').find('.select2-chosen').attr('id').split('-')[2];",
+            'Evaluate JavaScript    ${selector}',
+            "...    (selector) => $(selector).select2('open');",
+            "Evaluate JavaScript    ${select2}    (selector, option) =>",
+            "...    $(selector).find('[role=option]').filter(function() {return $(this).text().trim() == option}).trigger('mouseup');",
+            "...    arg=${option}"
+        ]
+    },
+    'vtiger.clickMainMenu': {
+        command: 'Click Main Menu',
+        codes: [
+            '[Arguments]    ${selector}',
+            'Evaluate JavaScript    $(selector)    (selector)    =>',
+            "...    $('#app-menu').addClass('on-hover-trigger-used').css('display', 'block');",
+            'Wait For Elements State    ${mainMenu}    visible',
+            'Click No Wait After    $(selector)'
+        ]
     }
 };
 

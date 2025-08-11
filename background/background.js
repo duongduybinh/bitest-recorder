@@ -41,8 +41,8 @@ var robotCommands = [
 ]
 
 var robotVTigerCommands = [
-    'vtiger.clickAppMenu',
-    'vtiger.selectField',
+    'clickMainMenu',
+    'selectField',
     // 'vtiger.logOut'
 ]
 
@@ -161,6 +161,15 @@ function createKrMenus() {
         documentUrlPatterns: ["<all_urls>"],
         contexts: ["all"]
     });
+    
+    browser.contextMenus.create({
+        id: "robot.vtiger",
+        parentId: 'robot',
+        title: "vTiger",
+        documentUrlPatterns: ["<all_urls>"],
+        contexts: ["all"]
+    });
+
     robotCommands.forEach(cmd => {
         var menuId = 'robot.' + cmd;
         var title = 'Robot.' + cmd;
@@ -171,13 +180,6 @@ function createKrMenus() {
             documentUrlPatterns: ["<all_urls>"],
             contexts: ["all"]
             });
-    });
-
-    browser.contextMenus.create({
-        id: "robot.vtiger",
-        title: "vTiger",
-        documentUrlPatterns: ["<all_urls>"],
-        contexts: ["all"]
     });
 
     robotVTigerCommands.forEach(cmd => {

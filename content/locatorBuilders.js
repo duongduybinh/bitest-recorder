@@ -148,6 +148,93 @@ LocatorBuilders.prototype.buildAll = function(el) {
     return locators;
 };
 
+LocatorBuilders.prototype.buildAllx = function(el) {
+    var e = core.firefox.unwrap(el); //Samit: Fix: Do the magic to get it to work in Firefox 4
+    var xpathLevel = 0;
+    var maxLevel = 10;
+    var buildWithResults;
+    var locators = [];
+    //this.log.debug("getLocator for element " + e);
+    var coreLocatorStrategies = this.pageBot().locationStrategies;
+    for (var i = 0; i < LocatorBuilders.order.length; i++) {
+        var finderName = LocatorBuilders.order[i];
+        var locator;
+        var locatorResults = []; // Array to hold buildWith results
+        //this.log.debug("trying " + finderName);
+        try {
+            buildWithResults = this.buildWith(finderName, e);
+
+            //only implement if no native implementation is available
+            if (!Array.isArray) {
+                Array.isArray = function (obj) {
+                    return Object.prototype.toString.call(obj) === '[object Array]';
+                }
+            };
+
+            // If locator is an array then dump its element in a new array
+            if (Array.isArray(buildWithResults)) {
+                for (var j = 0; j < buildWithResults.length; j++) {
+                    locatorResults.push(buildWithResults[j]);
+                }
+            } else {
+                locatorResults.push(buildWithResults);
+            }
+
+            for (var j = 0; j < locatorResults.length; j++) {
+                locator = locatorResults[j];
+
+                if (locator) {
+                    locator = String(locator);
+                    if(finderName.startsWith("xpath")) {
+                        locator = "xpath=" + locator;
+                    }
+                    //this.log.debug("locator=" + locator);
+                    // test the locator. If a is_fuzzy_match() heuristic function is
+                    // defined for the location strategy, use it to determine the
+                    // validity of the locator's results. Otherwise, maintain existing
+                    // behavior.
+                    //      try {
+                    //        //alert(PageBot.prototype.locateElementByUIElement);
+                    //        //Samit: The is_fuzzy_match stuff is buggy - comparing builder name with a locator name usually results in an exception :(
+                    //        var is_fuzzy_match = this.pageBot().locationStrategies[finderName].is_fuzzy_match;
+                    //        if (is_fuzzy_match) {
+                    //          if (is_fuzzy_match(this.findElement(locator), e)) {
+                    //            locators.push([ locator, finderName ]);
+                    //          }
+                    //        }
+                    //        else {
+                    //          if (e == this.findElement(locator)) {
+                    //            locators.push([ locator, finderName ]);
+                    //          }
+                    //        }
+                    //      }
+                    //      catch (exception) {
+                    //        if (e == this.findElement(locator)) {
+                    //          locators.push([ locator, finderName ]);
+                    //        }
+                    //      }
+
+                    //Samit: The following is a quickfix for above commented code to stop exceptions on almost every locator builder
+                    //TODO: the builderName should NOT be used as a strategy name, create a feature to allow locatorBuilders to specify this kind of behaviour
+                    //TODO: Useful if a builder wants to capture a different element like a parent. Use the this.elementEquals
+                    if (finderName != 'tac') {
+                        var fe = this.findElement(locator);
+                        if ((e == fe) || (coreLocatorStrategies[finderName] && coreLocatorStrategies[finderName].is_fuzzy_match && coreLocatorStrategies[finderName].is_fuzzy_match(fe, e))) {
+                            locators.push([locator, finderName]);
+                        }
+                    } else {
+                        locators.splice(0, 0, [locator, finderName]);
+                    }
+                }
+            }
+        } catch (e) {
+            // TODO ignore the buggy locator builder for now
+            //this.log.debug("locator exception: " + e);
+        }
+    }
+    return locators;
+};
+
 LocatorBuilders.prototype.findElement = function(locator) {
     try {
         return this.pageBot().findElement(locator);
@@ -348,10 +435,10 @@ LocatorBuilders.prototype.preciseXPath = function(xpath, e) {
  * ===== builders =====
  */
 
-LocatorBuilders.add('ui', function(pageElement) {
-    return UIMap.getInstance().getUISpecifierString(pageElement,
-        this.window.document);
-});
+// LocatorBuilders.add('ui', function(pageElement) {
+//     return UIMap.getInstance().getUISpecifierString(pageElement,
+//         this.window.document);
+// });
 
 LocatorBuilders.add('id', function(e) {
     if (e.id) {
@@ -360,22 +447,22 @@ LocatorBuilders.add('id', function(e) {
     return null;
 });
 
-LocatorBuilders.add('link', function(e) {
-    if (e.nodeName == 'A') {
-        var text = e.textContent;
-        if (!text.match(/^\s*$/)) {
-            return "link=" + exactMatchPattern(text.replace(/\xA0/g, " ").replace(/^\s*(.*?)\s*$/, "$1"));
-        }
-    }
-    return null;
-});
+// LocatorBuilders.add('link', function(e) {
+//     if (e.nodeName == 'A') {
+//         var text = e.textContent;
+//         if (!text.match(/^\s*$/)) {
+//             return "link=" + exactMatchPattern(text.replace(/\xA0/g, " ").replace(/^\s*(.*?)\s*$/, "$1"));
+//         }
+//     }
+//     return null;
+// });
 
-LocatorBuilders.add('name', function(e) {
-    if (e.name) {
-        return 'name=' + e.name;
-    }
-    return null;
-});
+// LocatorBuilders.add('name', function(e) {
+//     if (e.name) {
+//         return 'name=' + e.name;
+//     }
+//     return null;
+// });
 
 /*
  * This function is called from DOM locatorBuilders
