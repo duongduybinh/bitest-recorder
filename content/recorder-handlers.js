@@ -463,7 +463,7 @@ Recorder.addEventHandler('contextMenu', 'contextmenu', function(event) {
                 if(cmdRobot.startsWith('vtiger.')) {
                     cmdVTiger = cmdRobot.replace('vtiger.','');
                     switch (cmdVTiger){
-                        case 'clickAppMenu':
+                        case 'clickMainMenu':
                             self.record(m.cmd, tmpText, '');
                             break;
                         case 'selectField':

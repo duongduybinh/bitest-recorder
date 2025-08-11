@@ -361,10 +361,10 @@ this.robotKeywordMapping = {
         command: 'Click Main Menu',
         codes: [
             '[Arguments]    ${selector}',
-            'Evaluate JavaScript    $(selector)    (selector)    =>',
+            '${mainMenu}    Evaluate JavaScript    ${None}    () =>',
             "...    $('#app-menu').addClass('on-hover-trigger-used').css('display', 'block');",
             'Wait For Elements State    ${mainMenu}    visible',
-            'Click No Wait After    $(selector)'
+            'Click No Wait After    ${selector}'
         ]
     }
 };
