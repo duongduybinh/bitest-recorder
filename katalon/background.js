@@ -13,7 +13,7 @@ var runData = {};
 var curTabID = 0;
 var curWinID = 0;
 
-var version = null;
+var version = 'v1.0';
 
 browser.tabs.onActivated.addListener(function(activeInfo) {
     if (clientSocket !== null) {
@@ -215,6 +215,8 @@ function processRequest(requestType, requestData) {
 }
 
 browser.runtime.onMessage.addListener(function (request, sender, callback) {
+    console.log('background.js runtime.onMessage.addListener');
+    console.log(request);
     if (request.action == XHTTP_ACTION) {
         return processXHTTPAction(request, callback);
     } else if (request.action == "GET_REQUEST") {
