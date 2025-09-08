@@ -464,16 +464,26 @@ Recorder.addEventHandler('contextMenu', 'contextmenu', function(event) {
                     cmdVTiger = cmdRobot.replace('vtiger.','');
                     switch (cmdVTiger){
                         case 'clickMainMenu':
-                            self.record(m.cmd, tmpText, '');
+                            var fullUrl = new URL($(event.target).attr('href'), window.location.href);
+                            self.record(m.cmd, [[tmpVal]], fullUrl);
                             break;
                         case 'selectField':
-                            var elementSelect = $(event.target).closest('.fieldValue').find('select');
+                            var elementSelect = $(event.target).parents().eq(2).find('select');
                             selector = this.locatorBuilders.buildAllx(elementSelect.get(0));
                             tmpText = selector;
                             self.record(m.cmd, tmpText, tmpVal);
                             break;
-                        case 'logOut':
-
+                        case 'selectDate': 
+                            tmpVal = $(event.target).val();
+                            self.record(m.cmd, tmpText, tmpVal);
+                            break;
+                        case 'selectTabPhoneCalls': 
+                            tmpVal = $(event.target).val();
+                            self.record(m.cmd, '', '');
+                            break;
+                        case 'countPhoneCalls': 
+                            tmpVal = $(event.target).val();
+                            self.record(m.cmd, '', '');
                             break;
                     }
 
