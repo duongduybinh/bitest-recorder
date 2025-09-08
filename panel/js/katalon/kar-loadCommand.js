@@ -19,10 +19,21 @@ function _loadSeleniumCommands() {
         'assertInputStepMismatch',
         'assertInputBadInput',
         'assertInputCustomError',
-        
-    ]
+    ];
+    var vTigerCommands = [
+        'selectField',
+        'selectDate',
+        'selectTabPhoneCalls',
+        'countPhoneCalls',
+        'clickOpenNewTab',
+        'saveDependentFields'
+    ];
     robotCommands.forEach(cmd =>{
         commands.push('robot.' + cmd);
+    })
+
+    vTigerCommands.forEach(cmd =>{
+        commands.push('robot.vtiger.' + cmd);
     })
 
     var nonWaitActions = ['open', 'selectWindow', 'chooseCancelOnNextConfirmation', 'answerOnNextPrompt', 'close', 'setContext', 'setTimeout', 'selectFrame'];
