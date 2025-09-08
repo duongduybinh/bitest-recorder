@@ -19,8 +19,8 @@ this.options = {
     header:
         '*** Settings ***\n' +
         'Library  Browser\n' +
-        'Suite Setup     Start Browser\n' +
-        'Suite Teardown  End Browser\n\n' +
+        'Suite Setup     Start Session\n' +
+        'Suite Teardown  End Session\n\n' +
         '*** Variables ***\n' +
         '${BROWSER}   ' + this.active_browser + '\n\n' +
         '*** Test Cases ***\n',
@@ -49,10 +49,10 @@ this.name = "robotframework-testing_playwright";
 
 this.robotKeywordMapping = {
     open: {
-        command: 'Open New Page',
+        command: 'Go Page',
         codes: [
             '[Arguments]    ${url}',
-            'New Page    ${url}    domcontentloaded'
+            'Go To    ${url}    wait_until=load    timeout=300s'
         ]
     },
     clickAndWait: {
@@ -125,6 +125,7 @@ this.robotKeywordMapping = {
         command: 'Title Should Be',
         codes: [
             "[Arguments]    ${expected}",
+            "Wait For Load State    domcontentloaded    timeout=15s",
             "Get Title    ==    ${expected}"
         ]
     },
@@ -210,11 +211,19 @@ this.robotKeywordMapping = {
             'Fail'
         ]
     },
-    waitForElementPresent: { command: 'Page Should Contain Element', codes: [] },
-    waitForVisible: { command: 'Page Should Contain Element', codes: [] },
-    waitForTitle: {
-        command: 'Wait For Title',
-        codes: [] 
+    waitForElementPresent: { 
+        command: 'Wait For Visible', 
+        codes: [
+            '[Arguments]    ${locator}',
+            'Wait For Elements State    ${locator}    visible'
+        ] 
+    },
+    waitForVisible: { 
+        command: 'Wait For Visible', 
+        codes: [
+            '[Arguments]    ${locator}',
+            'Wait For Elements State    ${locator}    visible'
+        ] 
     },
     waitForTable: {
         command: 'Element Should Contains',
@@ -328,7 +337,7 @@ this.robotKeywordMapping = {
         command : 'Wait For Title',
         codes: [
             '[Arguments]    ${expected}',
-            'Wait For     Title    ${expected}'
+            'Wait For Condition    Title     contains    ${expected}'
         ]
     },
     waitForUrl: {
@@ -347,24 +356,78 @@ this.robotKeywordMapping = {
         codes: [
             '[Arguments]    ${selector}    ${option}',
             'Wait For Elements State    ${selector}    visible',
-            'Sleep    1s',
-            '${select2}    Evaluate JavaScript    ${selector}    (selector, option) =>',
-            "...    '#select2-results-' + $(selector).closest('.fieldValue').find('.select2-chosen').attr('id').split('-')[2];",
             'Evaluate JavaScript    ${selector}',
-            "...    (selector) => $(selector).select2('open');",
-            "Evaluate JavaScript    ${select2}    (selector, option) =>",
-            "...    $(selector).find('[role=option]').filter(function() {return $(this).text().trim() == option}).trigger('mouseup');",
+            '...    (selector) => $(selector).select2(\'open\')',
+            'Evaluate JavaScript    ${selector}',
+            "...    (selector, option) => $(selector).val(option).trigger('change')",
             "...    arg=${option}"
         ]
     },
     'vtiger.clickMainMenu': {
         command: 'Click Main Menu',
         codes: [
+            '[Arguments]    ${menuTitle}    ${url}',  
+            'Go To    ${url}',
+            'Wait For Load State    domcontentloaded    timeout=15s',
+            'Sleep    2s'
+        ]
+    },
+    'vtiger.selectDate': {
+        command: 'Select Date',
+        codes: [
+            '[Arguments]    ${selector}    ${option}',
+            'Scroll To Element    ${selector}',
+            'Click First Element    ${selector}',
+            '${result}    Evaluate JavaScript    ${selector}',
+            '...    (selector,option) => {',
+            '...        $(selector).valid();',
+            '...        $(selector).datepicker("setDate",option);',
+            '...        $(selector).datepicker("hide");',
+            '...        return $(selector).datepicker( "getDate" );',
+            '...    }',
+            '...    arg=${option}',
+            'Take Screenshot',
+        ]
+    },
+    'vtiger.selectTabPhoneCalls': {
+        command: 'Select Tab Phone Calls',
+        codes: [
+            'Click First Element    xpath=//ul[@id=\'detailViewtabs\']/li[6]/a/span/span',
+            'Wait For Elements State    id=listview-table    visible',
+            'Take Screenshot'
+        ]
+    },
+    'vtiger.countPhoneCalls': {
+        command: 'Count Phone Calls',
+        codes: [
+            '${result}    Evaluate JavaScript    ${None}',
+            '...    (selector, option) => {',
+            '...        return $(\'#listview-table tbody .listViewEntries\').length;',
+            '...    }',
+            'RETURN    ${result}'
+        ]
+    },
+    'vtiger.clickOpenNewTab': {
+        command: 'Click Open New Tab',
+        codes: [
+            '[Arguments]    ${locator}',
+            '${base}=        Get Url',
+            '${base_root}=     Evaluate    "${base}".rsplit(\'/\',1)[0]',
+            '${relative}=    Get Attribute    ${locator}    href',
+            '${absolute}=    Catenate    SEPARATOR=/    ${base_root}    ${relative}',
+            'Go To    ${absolute}    timeout=300s',
+            'Take Screenshot'
+        ]
+    },
+    'vtiger.saveDependentFields': {
+        command: 'Save Dependent Fields',
+        codes: [
             '[Arguments]    ${selector}',
-            '${mainMenu}    Evaluate JavaScript    ${None}    () =>',
-            "...    $('#app-menu').addClass('on-hover-trigger-used').css('display', 'block');",
-            'Wait For Elements State    ${mainMenu}    visible',
-            'Click No Wait After    ${selector}'
+            'Evaluate JavaScript    ${None}',
+            '...    () => $(\'.custom-popup\').hide()',
+            'Click    ${selector}',
+            'Sleep    5s',
+            'Take Screenshot',
         ]
     }
 };
@@ -380,7 +443,49 @@ this.robotKeywordReplace = {
     ],
     'Open New Page': [
         '[Arguments]    ${url}',
-        'New Page    ${url}    domcontentloaded'
+        'New Page    ${url}    load'
+    ],
+    'Start Session': [
+        'Start Browser',
+        'Login'
+    ],
+    'End Session': [
+        'Logout',
+        'End Browser'
+    ],
+    'Login With Session':[
+        'Click First Element    xpath=//a[contains(text(),\'Sign Out\')]',
+        'Wait For Title    Dashboard'
+    ],
+    'Login': [
+        'Open New Page    https://fecredit-uat.od1.vtiger.ws',
+        'Fill Text    id=username    createnew6@gmail.com',
+        'Fill Text    id=password    Crm@0123',
+        'Press Keys    id=password    Enter',
+        'Wait For Condition    Title    should not be        timeout=300s',
+        '${title}=    Get Title',
+        'Run Keyword If    \'${title}\' == \'Vtiger\'    Login With Session',
+        '...    ELSE    Run Keyword If    \'${title}\' == \'Users\'    Login',
+        '...    ELSE    Wait For Title    FECredit',
+    ],
+    'Logout': [
+        'Go To    https://fecredit-uat.od1.vtiger.ws/index.php?module=Users&action=Logout    wait_until=load    timeout=300s'
+    ],
+    'Wait For Title':[
+        '[Arguments]    ${expected}',
+        'Wait For Condition    Title     contains    ${expected}'
+    ], 
+    'Go Page' :[
+        '[Arguments]    ${url}',
+        'Go To    ${url}    wait_until=load    timeout=300s'
+    ],
+    'Click First Element': [
+        '[Arguments]    ${selector}',
+        'Sleep    2s',
+        '${elements}=    Get Elements    ${selector}',
+        'Should Not Be Empty    ${elements}',
+        'Wait For Elements State    ${elements[0]}    visible',
+        'Click    ${elements[0]}'
     ]
 };
 /**
@@ -545,7 +650,7 @@ function formatHeader(name, testCase) {
     }
     // header += "    [Setup]  Run Keywords  Open Browser  " + openurl + "  ${BROWSER}\n";
     // header += "    ...              AND   Set Selenium Speed  ${SELSPEED}\n";
-    header += "    Open New Page    " + openurl + "\n";
+    header += "    Go Page    " + openurl + " \n";
     return header;
 }
 
