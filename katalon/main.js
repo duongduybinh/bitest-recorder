@@ -24,6 +24,7 @@ browser.runtime.onMessage.addListener(function(request, sender, callback) {
     }
     switch (request.action) {
     case START_ADDON:
+		console.log(request);
         start(request.runMode, request.data, request.version);
         break;
     case STOP_ADDON:
@@ -35,7 +36,7 @@ browser.runtime.onMessage.addListener(function(request, sender, callback) {
 browser.runtime.sendMessage({
     action : CHECK_ADDON_START_STATUS
 }).then(function(response) {
-  start(response.runMode, response.data, response.version);
+	start(response.runMode, response.data, response.version);
 });
 
 function start(newRunMode, data, version) {
